@@ -3,4 +3,20 @@
     <color name="colorPrimary">#222222</color>
     <color name="colorPrimaryDark">#7C000000</color>
     <color name="colorAccent">#508AC9</color>
+    <color name="errorText">#ff0000</color>
+    <color name="lightText">#DDD</color>
+    <color name="lighterText">#EEE</color>
+    <color name="lightestText">#FFF</color>
+    <color name="greyHint">#888</color>
+    <color name="darkText">#444</color>
+    <color name="darkerText">#222</color>
+    <color name="darkestText">#000</color>
+    <color name="transBlack">#BA000000</color>
+    <color name="darkestBackground">#000</color>
+    <color name="darkerBackground">#222</color>
+    <color name="lighterBackground">#EEE</color>
+    <color name="lightestBackground">#FFF</color>
+    <color name="greenButtonBackground">#26AE61</color>
+    <color name="greenButtonBackgroundClicked">#45AD72</color>
+    <color name="greenButtonBorderColor">#156636</color>
 </resources>
