@@ -2,4 +2,9 @@
     <string name="app_name">Airport app</string>
     <string name="ok">Ok</string>
     <string name="no">No</string>
+    <string name="error_dialog_title">Erorr</string>
+    <string name="api_user_error">Google API user error</string>
+    <string name="api_error">Api error</string>
+    <string name="google_map_apikey">AIzaSyBVFSaM45EBvagrktYI_oVvWfckNg37aec</string>
+    <string name="permission_denied_message">You denied the app access to your location, inorder to use the app please go to your settings and allow permission</string>
 </resources>
