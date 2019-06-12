@@ -24,24 +24,14 @@ public class NotificationHelper {
         return toast;
     }
 
-    public static void showErrorDialog(Context context, String title, String message, String... buttonText) {
-        String posiTiveButtonText = context.getResources().getString(R.string.ok);
-
-        if (buttonText != null && buttonText.length > 0)
-            posiTiveButtonText = buttonText[0];
-
-        AlertDialog.Builder ab = setupBasicMessage(context, title, message, posiTiveButtonText, false, false);
+    public static void showErrorDialog(Context context, String title, String message, String buttonText) {
+        AlertDialog.Builder ab = setupBasicMessage(context, title, message, buttonText, false, false);
         ab.setIcon(R.drawable.ic_error);
         showAlertMessage(context, ab);
     }
 
-    public static void showSuccessDialog(Context context, String title, String message, String... buttonText) {
-        String posiTiveButtonText = context.getResources().getString(R.string.ok);
-
-        if (buttonText != null && buttonText.length > 0)
-            posiTiveButtonText = buttonText[0];
-
-        AlertDialog.Builder ab = setupBasicMessage(context, title, message, posiTiveButtonText, false, false);
+    public static void showSuccessDialog(Context context, String title, String message, String buttonText) {
+        AlertDialog.Builder ab = setupBasicMessage(context, title, message, buttonText, false, false);
         ab.setIcon(R.drawable.ic_success);
         showAlertMessage(context, ab);
     }
