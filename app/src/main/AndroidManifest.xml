@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".features.dashboard.DashboardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarTheme"/>
+        <activity
             android:name=".features.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
