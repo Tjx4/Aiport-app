@@ -5,13 +5,20 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,11 +30,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import java.util.List;
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
 import co.za.dvt.airportapp.helpers.PermissionsHelper;
+import co.za.dvt.airportapp.helpers.UnitConverterHelper;
 import co.za.dvt.airportapp.models.AirportModel;
 
 public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
@@ -74,7 +84,8 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     }
 
     protected boolean isMovedFiveMeters(LatLng userCordinates){
-        return lastCordinates == null || lastCordinates != userCordinates;
+        boolean isSameLocation = (lastCordinates == null)? true : lastCordinates.latitude == userCordinates.latitude && lastCordinates.longitude == userCordinates.longitude ;
+        return lastCordinates == null || !isSameLocation;
     }
 
     protected void checkGoogleApi() {
@@ -100,9 +111,9 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     @Override
     public void onMapReady(GoogleMap googleMap) {
         buildGoogleApiClient();
-        googleMap.setMyLocationEnabled(true);
-        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         this.googleMap = googleMap;
+        googleMap.setMyLocationEnabled(true);
+        moveLocationButtonToBottomRight();
     }
 
     private void moveInToLocation(LatLng ll, int zoom) {
@@ -141,10 +152,56 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
-            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
+            LocationCallback locationCallback = new LocationCallback() {
+                @Override
+                public void onLocationResult(LocationResult locationResult) {
+                    if (locationResult == null) {
+                        return;
+                    }
+                    for (Location location : locationResult.getLocations()) {
+                        onLocationChanged(location);
+                    }
+                }
+            };
+
+            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+
+                            if (location != null) {
+                                LatLng userCordinates = new LatLng(location.getLatitude(), location.getLongitude());
+                                plotUserMarker(userCordinates, getString(R.string.you), getString(R.string.user_location_message));
+                                goToLocationZoomNoAnimation(userCordinates, 16);
+                            }
+                        }
+                    });
+
         }
         else {
             checkLocationPermissionAndContinue();
+        }
+    }
+
+    protected void moveLocationButtonToBottomRight() {
+        View mapView = mapFragment.getView();
+
+        if (mapView != null) {
+            View childView = mapView.findViewById(Integer.parseInt("1"));
+
+            if(childView != null){
+                View locationButton = ((View) childView.getParent()).findViewById(Integer.parseInt("2"));
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)locationButton.getLayoutParams();
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+                int bottomMarginDp = (int) UnitConverterHelper.pixelToDp(200, this);
+                int marginInDp = (int) UnitConverterHelper.pixelToDp(20, this);
+                layoutParams.setMargins(marginInDp, marginInDp, marginInDp, bottomMarginDp);
+                locationButton.setLayoutParams(layoutParams);
+            }
         }
     }
 
@@ -156,6 +213,10 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 //
+    }
+
+    protected void moveUserMarker(LatLng latLng) {
+        userMarker.setPosition(latLng);
     }
 
     protected Marker getMarker(LatLng latLng, String title, String snippet, String tag) {
