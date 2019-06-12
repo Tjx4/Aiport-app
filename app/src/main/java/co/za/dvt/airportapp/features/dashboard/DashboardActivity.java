@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+
 import javax.inject.Inject;
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.di.components.AppComponent;
@@ -22,6 +24,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_activity);
+        checkLocationPermissionAndContinue();
     }
 
     @Override
@@ -56,12 +59,13 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView,
     }
 
     @Override
-    protected void onFineLocationPermissionGranted() {
-    }
-
-    @Override
     public void onLocationChanged(Location location) {
         super.onLocationChanged(location);
-    }
 
+        if(!isAtUserLocation){
+            LatLng userCordinates = new LatLng(location.getLatitude(), location.getLongitude());
+            plotMarkerAndGoToUserLocation(userCordinates);
+            isAtUserLocation = true;
+        }
+    }
 }

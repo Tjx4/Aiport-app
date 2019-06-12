@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 
 public class PermissionsHelper {
     private static final String ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String ACCESS_COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
 
     private static boolean isPermissionGranted(AppCompatActivity activity, String permission) {
         if(isbellowMashMellow())
