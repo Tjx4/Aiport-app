@@ -22,7 +22,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_activity);
-        prepareMap();
     }
 
     @Override

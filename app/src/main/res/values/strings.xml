@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Airport app</string>
+    <string name="ok">Ok</string>
+    <string name="no">No</string>
 </resources>

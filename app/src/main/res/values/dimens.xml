@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xlarge_text_size">40sp</dimen>
+    <dimen name="large_text_size">20sp</dimen>
+    <dimen name="medium_text_size">16sp</dimen>
+    <dimen name="small_text_size">12sp</dimen>
+    <dimen name="xsmall_text_size">10sp</dimen>
+    <dimen name="small_view_padding">15dp</dimen>
+    <dimen name="medium_view_padding">25dp</dimen>
+    <dimen name="large_view_padding">35dp</dimen>
+    <dimen name="small_view_margin">16dp</dimen>
+    <dimen name="medium_view_margin">26dp</dimen>
+    <dimen name="large_view_margin">36dp</dimen>
+    <dimen name="medium_view_height">50dp</dimen>
+</resources>
