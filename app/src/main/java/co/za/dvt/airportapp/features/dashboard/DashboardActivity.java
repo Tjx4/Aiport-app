@@ -6,7 +6,6 @@ import android.view.KeyEvent;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-
 import javax.inject.Inject;
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.di.components.AppComponent;
@@ -61,11 +60,13 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView,
     @Override
     public void onLocationChanged(Location location) {
         super.onLocationChanged(location);
+        LatLng userCordinates = new LatLng(location.getLatitude(), location.getLongitude());
 
-        if(!isAtUserLocation){
-            LatLng userCordinates = new LatLng(location.getLatitude(), location.getLongitude());
-            plotMarkerAndGoToUserLocation(userCordinates);
-            isAtUserLocation = true;
+        if(isMovedFiveMeters(userCordinates)){
+            plotUserMarker(userCordinates, getString(R.string.you), getString(R.string.user_location_message));
+            goToLocationZoomNoAnimation(userCordinates, 16);
         }
+
+        lastCordinates = userCordinates;
     }
 }

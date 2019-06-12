@@ -23,7 +23,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.List;
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
@@ -38,7 +37,7 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     protected GoogleApiClient googleApiClient;
     protected List<Marker> airportMarkers;
     protected Marker userMarker;
-    protected boolean isAtUserLocation;
+    protected LatLng lastCordinates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +73,10 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
         }
     }
 
+    protected boolean isMovedFiveMeters(LatLng userCordinates){
+        return lastCordinates == null || lastCordinates != userCordinates;
+    }
+
     protected void checkGoogleApi() {
         GoogleApiAvailability api = GoogleApiAvailability.getInstance();
         int isAv = api.isGooglePlayServicesAvailable(this);
@@ -91,7 +94,6 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
 
     @Override
     public void onLocationChanged(Location location) {
-
     }
 
     @SuppressLint("MissingPermission")
@@ -99,6 +101,7 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     public void onMapReady(GoogleMap googleMap) {
         buildGoogleApiClient();
         googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         this.googleMap = googleMap;
     }
 
@@ -153,11 +156,6 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 //
-    }
-
-    protected void plotMarkerAndGoToUserLocation(LatLng userCordinates) {
-        plotUserMarker(userCordinates, "You", "This is your location");
-        goToLocationZoomNoAnimation(userCordinates, 16);
     }
 
     protected Marker getMarker(LatLng latLng, String title, String snippet, String tag) {

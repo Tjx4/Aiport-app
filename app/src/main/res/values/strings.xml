@@ -7,4 +7,6 @@
     <string name="api_error">Api error</string>
     <string name="google_map_apikey">AIzaSyBVFSaM45EBvagrktYI_oVvWfckNg37aec</string>
     <string name="permission_denied_message">You denied the app access to your location, inorder to use the app please go to your settings and allow permission</string>
+    <string name="you">You</string>
+    <string name="user_location_message">This is your location</string>
 </resources>
