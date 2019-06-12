@@ -19,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -159,14 +160,14 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
         goToLocationZoomNoAnimation(userCordinates, 16);
     }
 
-    protected Marker getMarker(LatLng ll, String title, String snippet, String tag) {
+    protected Marker getMarker(LatLng latLng, String title, String snippet, String tag) {
         MarkerOptions markerOptions = new MarkerOptions()
                 .title(title)
                 .flat(true)
                 .anchor(0.5f, 0.5f)
                 .rotation(0)
                 .snippet(snippet)
-                .position(ll);
+                .position(latLng);
 
         Marker airportMarker = googleMap.addMarker(markerOptions);
         airportMarker.setTag(tag);
@@ -175,11 +176,15 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
 
     protected void plotUserMarker(LatLng latLng, String title, String snippet) {
         Marker userMarker = getMarker(latLng, title, snippet, Constants.USER_MARKER_TAG);
+        BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.client_marker);
+        userMarker.setIcon(markerIcon);
         this.userMarker = userMarker;
     }
 
     protected void plotAirportMarker(LatLng latLng, String title, String snippet, String tag) {
         Marker airportMarker = getMarker(latLng, title, snippet, tag);
+        BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_pin);
+        airportMarker.setIcon(markerIcon);
         airportMarkers.add(airportMarker);
     }
 
