@@ -47,7 +47,6 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     protected GoogleApiClient googleApiClient;
     protected List<Marker> airportMarkers;
     protected Marker userMarker;
-    protected LatLng lastCordinates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +83,7 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     }
 
     protected boolean isMovedFiveMeters(LatLng userCordinates){
-        boolean isSameLocation = (lastCordinates == null)? true : lastCordinates.latitude == userCordinates.latitude && lastCordinates.longitude == userCordinates.longitude ;
-        return lastCordinates == null || !isSameLocation;
+        return true;
     }
 
     protected void checkGoogleApi() {

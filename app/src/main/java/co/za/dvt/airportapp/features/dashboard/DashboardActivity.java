@@ -63,10 +63,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView,
         LatLng userCordinates = new LatLng(location.getLatitude(), location.getLongitude());
 
         if(isMovedFiveMeters(userCordinates)){
-            plotUserMarker(userCordinates, getString(R.string.you), getString(R.string.user_location_message));
-            goToLocationZoomNoAnimation(userCordinates, 16);
+            moveUserMarker(userCordinates);
         }
-
-        lastCordinates = userCordinates;
     }
 }
