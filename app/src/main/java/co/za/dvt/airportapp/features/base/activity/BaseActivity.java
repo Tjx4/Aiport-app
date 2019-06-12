@@ -1,0 +1,6 @@
+package co.za.dvt.airportapp.features.base.activity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public abstract class BaseActivity extends AppCompatActivity {
+}

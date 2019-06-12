@@ -2,8 +2,10 @@ package co.za.dvt.airportapp.di.modules;
 
 import co.za.dvt.airportapp.features.dashboard.DashboardPresenter;
 import co.za.dvt.airportapp.features.dashboard.DashboardView;
+import dagger.Module;
 import dagger.Provides;
 
+@Module
 public class DashboardModule {
     private DashboardView dashboardView;
 

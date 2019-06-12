@@ -1,4 +1,8 @@
 package co.za.dvt.airportapp.features.base.activity;
 
-public abstract class BaseAsyncActivity {
+import co.za.dvt.airportapp.di.components.AppComponent;
+
+public abstract class BaseAsyncActivity extends BaseActivity{
+
+    protected abstract void setupComponent(AppComponent appComponent);
 }
