@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false">
+        <shape
+            android:shape="rectangle"
+            android:padding="10dp">
+            <solid android:color="@color/colorAccent"/>
+
+            <stroke
+                android:width="0dp"
+                android:color="@color/colorAccent" />
+
+            <corners
+                android:bottomRightRadius="@dimen/medium_button_courner_radius"
+                android:bottomLeftRadius="@dimen/medium_button_courner_radius"
+                android:topLeftRadius="@dimen/medium_button_courner_radius"
+                android:topRightRadius="@dimen/medium_button_courner_radius"/>
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape
+            android:shape="rectangle"
+            android:padding="10dp">
+            <solid android:color="@color/greenButtonBackgroundClicked"/>
+
+            <stroke
+                android:width="0dp"
+                android:color="@color/greenButtonBorderColor" />
+
+            <corners
+                android:bottomRightRadius="@dimen/medium_button_courner_radius"
+                android:bottomLeftRadius="@dimen/medium_button_courner_radius"
+                android:topLeftRadius="@dimen/medium_button_courner_radius"
+                android:topRightRadius="@dimen/medium_button_courner_radius"/>
+        </shape>
+    </item>
+</selector>
