@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00ff56</color>
-    <color name="colorPrimaryDark">#9E0088CC</color>
+    <color name="colorPrimary">#222</color>
+    <color name="colorPrimaryDark">#111</color>
     <color name="colorAccent">#508AC9</color>
+    <color name="buttonBackgroundClicked">#519AC9</color>
     <color name="errorText">#ff0000</color>
     <color name="lightText">#BBB</color>
     <color name="lighterText">#DDD</color>
@@ -12,11 +13,6 @@
     <color name="darkerText">#333</color>
     <color name="darkestText">#000</color>
     <color name="transBlack">#BA000000</color>
-    <color name="darkestBackground">#000</color>
-    <color name="darkerBackground">#222</color>
-    <color name="lighterBackground">#EEE</color>
-    <color name="lightestBackground">#FFF</color>
-    <color name="greenButtonBackground">#26AE61</color>
-    <color name="greenButtonBackgroundClicked">#45AD72</color>
-    <color name="greenButtonBorderColor">#156636</color>
+    <color name="darkBackground">#222</color>
+    <color name="lightBackground">#FFF</color>
 </resources>

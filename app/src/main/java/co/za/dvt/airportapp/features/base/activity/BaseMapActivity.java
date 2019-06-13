@@ -157,6 +157,7 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
                         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
                     }
                 }
+
             });
 
         }

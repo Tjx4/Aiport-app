@@ -21,11 +21,11 @@
         <shape
             android:shape="rectangle"
             android:padding="10dp">
-            <solid android:color="@color/greenButtonBackgroundClicked"/>
+            <solid android:color="@color/buttonBackgroundClicked"/>
 
             <stroke
                 android:width="0dp"
-                android:color="@color/greenButtonBorderColor" />
+                android:color="@color/colorAccent" />
 
             <corners
                 android:bottomRightRadius="@dimen/medium_button_courner_radius"

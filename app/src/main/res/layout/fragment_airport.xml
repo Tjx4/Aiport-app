@@ -10,8 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginRight="20dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -26,13 +25,13 @@
                 android:src="@drawable/ic_airport_frag"/>
 
             <LinearLayout
-                android:background="@color/lightestBackground"
+                android:background="@color/lightBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/imgAirportIcon"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/small_view_margin"
+                android:layout_centerVertical="true"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -50,10 +49,10 @@
 
         <Button
             style="@style/mediumButton"
-            android:layout_width="220dp"
-            android:layout_marginTop="@dimen/medium_view_margin"
             android:layout_gravity="center"
-            android:text="Departures"/>
+            android:layout_marginTop="@dimen/medium_view_margin"
+            android:layout_marginBottom="@dimen/medium_view_margin"
+            android:text="Departures" />
     </LinearLayout>
 
 
