@@ -17,7 +17,7 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_gravity="center|bottom"
-        android:layout_margin="30dp"
+        android:layout_margin="@dimen/large_view_margin"
         android:background="@android:color/transparent"
         android:onClick="onFindAirportsClicked"
         android:src="@mipmap/ic_launcher_round"/>

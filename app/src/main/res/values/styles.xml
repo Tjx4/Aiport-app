@@ -10,7 +10,6 @@
         <item name="windowNoTitle">true</item>
     </style>
     <style name="TransStatusbarTheme" parent="NoActionBarTheme">
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     </style>
     <style name="SplashTheme" parent="NoActionBarTheme">
         <item name="android:background">@drawable/splash_background</item>
@@ -25,6 +24,21 @@
         <item name="android:background">@color/darkestBackground</item>
         <item name="android:windowBackground">@color/darkestBackground</item>
         <item name="android:color">#cccccc</item>
+    </style>
+    <style name="DialogTheme">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <style name="teamManagerTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="mediumLabel" parent="teamManagerTextView">
+        <item name="android:textSize">@dimen/medium_text_size</item>
+    </style>
+    <style name="mediumLightLabel" parent="mediumLabel">
+        <item name="android:textColor">@color/lighterText</item>
     </style>
 
 </resources>

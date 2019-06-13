@@ -3,11 +3,26 @@ package co.za.dvt.airportapp.helpers;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.Window;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import co.za.dvt.airportapp.R;
+import co.za.dvt.airportapp.constants.Constants;
+import co.za.dvt.airportapp.fragments.BaseDialogFragment;
 
 public class NotificationHelper {
+
+    public static void showFragmentDialog(AppCompatActivity activity, String title, int Layout, BaseDialogFragment newFragment) {
+        FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+        Bundle payload = new Bundle();
+        payload.putString(Constants.TITLE, title);
+        payload.putInt(Constants.LAYOUT, Layout);
+
+        newFragment.setArguments(payload);
+        newFragment.show(ft, "dialog");
+    }
 
     public static void showShortToast(Context context, String message) {
         Toast toast = getToast(context, message, Toast.LENGTH_SHORT);

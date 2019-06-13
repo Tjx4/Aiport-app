@@ -9,4 +9,7 @@
     <string name="permission_denied_message">You denied the app access to your location, inorder to use the app please go to your settings and allow permission</string>
     <string name="you">You</string>
     <string name="user_location_message">This is your location</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
