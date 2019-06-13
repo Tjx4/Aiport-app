@@ -35,6 +35,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     private LinearLayout airportsCarouselContainerFl;
     private ViewPager airportsViewPager;
     private final int AIRPORT_ZOOM = 13;
+    private final int USER_ZOOM = 14;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     protected void onRequestListenerSuccess(Location location) {
         LatLng userCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
         plotUserMarker(userCoordinates, getString(R.string.you), getString(R.string.user_location_message));
-        goToLocationZoomNoAnimation(userCoordinates, 14);
+        goToLocationZoomNoAnimation(userCoordinates, USER_ZOOM);
     }
 
     @Override
