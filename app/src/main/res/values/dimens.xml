@@ -12,4 +12,7 @@
     <dimen name="large_view_margin">50dp</dimen>
     <dimen name="medium_view_height">50dp</dimen>
     <dimen name="medium_button_courner_radius">50dp</dimen>
+    <dimen name="departure_button_width">100dp</dimen>
+    <dimen name="departure_button_height">100dp</dimen>
+    <dimen name="departure_button_padding">10dp</dimen>
 </resources>

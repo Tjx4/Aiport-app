@@ -32,10 +32,10 @@
     </style>
 
     <style name="airportAppButton">
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">100dp</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_width">@dimen/departure_button_width</item>
+        <item name="android:layout_height">@dimen/departure_button_height</item>
+        <item name="android:paddingLeft">@dimen/departure_button_padding</item>
+        <item name="android:paddingRight">@dimen/departure_button_padding</item>
     </style>
     <style name="mediumButton" parent="airportAppButton">
         <item name="android:textAllCaps">false</item>
