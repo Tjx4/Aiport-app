@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import static co.za.dvt.airportapp.adapters.CustomPagerAdapter.BIG_SCALE;
+import static co.za.dvt.airportapp.adapters.AirportPagerAdapter.BIG_SCALE;
 
 public class CustomLinearLayout extends LinearLayout {
     private float mScale = BIG_SCALE;

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import co.za.dvt.airportapp.R;
-import co.za.dvt.airportapp.adapters.CustomPagerAdapter;
+import co.za.dvt.airportapp.adapters.AirportPagerAdapter;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.di.components.AppComponent;
 import co.za.dvt.airportapp.di.components.DaggerDashboardComponent;
@@ -172,7 +172,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
             airportFragments.add(airportFragment);
         }
 
-        CustomPagerAdapter stylistsViewPagerAdapter = new CustomPagerAdapter(this, this.getSupportFragmentManager(), airportFragments);
+        AirportPagerAdapter stylistsViewPagerAdapter = new AirportPagerAdapter(this, this.getSupportFragmentManager(), airportFragments);
         stylistsViewPagerAdapter.notifyDataSetChanged();
         airportsViewPager.setAdapter(stylistsViewPagerAdapter);
         airportsViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

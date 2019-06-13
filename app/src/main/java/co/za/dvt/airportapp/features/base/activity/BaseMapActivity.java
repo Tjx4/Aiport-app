@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import androidx.annotation.DrawableRes;
@@ -37,7 +36,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.List;
 import co.za.dvt.airportapp.R;
-import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
 import co.za.dvt.airportapp.helpers.PermissionsHelper;
 
@@ -138,7 +136,7 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
-            LocationCallback locationCallback = new LocationCallback() {
+            final LocationCallback locationCallback = new LocationCallback() {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
                     if (locationResult == null) {
@@ -150,17 +148,17 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
                 }
             };
 
-            FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
-            fusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                onRequestListenerSuccess(location);
-                            }
-                        }
-                    });
+            final FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        onRequestListenerSuccess(location);
+                        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+                    }
+                }
+            });
+
         }
         else {
             checkLocationPermissionAndContinue();

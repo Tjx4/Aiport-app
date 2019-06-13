@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.gms.maps.model.LatLng;
-
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.features.dashboard.DashboardView;
@@ -37,16 +35,14 @@ public class AirportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View parentView = inflater.inflate(R.layout.fragment_airport, container, false);
+        TextView airportNameTv = parentView.findViewById(R.id.tvAirportName);
+        TextView distanceFromUserTv = parentView.findViewById(R.id.tvdistanceFromUser);
 
         name = getArguments().getString(Constants.AIRPORT_NAME);
         distanceFromUser = getArguments().getString(Constants.DISTANCE_FROM_USER);
 
-        TextView airportNameTv = parentView.findViewById(R.id.tvAirportName);
         airportNameTv.setText(name);
-
-        TextView distanceFromUserTv = parentView.findViewById(R.id.tvdistanceFromUser);
         distanceFromUserTv.setText(distanceFromUser);
-
 
         return parentView;
     }

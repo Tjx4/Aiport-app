@@ -21,7 +21,7 @@
         android:layout_margin="@dimen/large_view_margin"
         android:background="@android:color/transparent"
         android:onClick="onFindAirportsClicked"
-        android:src="@mipmap/ic_launcher_round"/>
+        android:src="@drawable/ic_airport_find"/>
 
     <LinearLayout
         android:id="@+id/flAirportsCarouselContainer"
@@ -45,7 +45,7 @@
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpAirports"
-            android:layout_margin="0dp"
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="180dp"/>
 

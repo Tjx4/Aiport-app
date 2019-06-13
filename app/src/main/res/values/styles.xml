@@ -18,40 +18,40 @@
     <style name="AlertDialogCustom" parent="@android:style/Theme.Dialog">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#cccccc</item>
+        <item name="android:textColor">@color/darkerText</item>
         <item name="android:typeface">monospace</item>
         <item name="android:textSize">@dimen/medium_text_size</item>
-        <item name="android:background">@color/darkestBackground</item>
-        <item name="android:windowBackground">@color/darkestBackground</item>
-        <item name="android:color">#cccccc</item>
+        <item name="android:background">@color/lightestBackground</item>
+        <item name="android:windowBackground">@color/lightestBackground</item>
+        <item name="android:color">@color/darkerText</item>
     </style>
+
     <style name="DialogTheme">
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
-    
-    <style name="teamManagerTextView">
+
+    <style name="airportAppTextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="largeLabel" parent="teamManagerTextView">
+    <style name="largeTextView" parent="airportAppTextView">
         <item name="android:textSize">@dimen/large_text_size</item>
         <item name="android:textStyle">bold</item>
     </style>
-    <style name="largeLightLabel" parent="largeLabel">
+    <style name="largeLightTextView" parent="largeTextView">
         <item name="android:textColor">@color/lightestText</item>
     </style>
-    <style name="largeDarkLabel" parent="largeLabel">
+    <style name="largeDarkTextView" parent="largeTextView">
         <item name="android:textColor">@color/darkestText</item>
     </style>
-    <style name="mediumLabel" parent="teamManagerTextView">
+    <style name="mediumTextView" parent="airportAppTextView">
         <item name="android:textSize">@dimen/medium_text_size</item>
     </style>
-    <style name="mediumLightLabel" parent="mediumLabel">
+    <style name="mediumLightTextView" parent="mediumTextView">
         <item name="android:textColor">@color/lighterText</item>
     </style>
-    <style name="mediumDarkLabel" parent="mediumLabel">
+    <style name="mediumDarkEditText" parent="mediumTextView">
         <item name="android:textColor">@color/darkerText</item>
     </style>
-
 </resources>
