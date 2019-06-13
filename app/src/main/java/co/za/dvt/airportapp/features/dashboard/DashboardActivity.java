@@ -1,6 +1,5 @@
 package co.za.dvt.airportapp.features.dashboard;
 
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -11,7 +10,6 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -73,7 +71,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     protected void onRequestListenerSuccess(Location location) {
         LatLng userCordinates = new LatLng(location.getLatitude(), location.getLongitude());
         plotUserMarker(userCordinates, getString(R.string.you), getString(R.string.user_location_message));
-        goToLocationZoomNoAnimation(userCordinates, 15);
+        goToLocationZoomNoAnimation(userCordinates, 14);
     }
 
     @Override
@@ -88,6 +86,11 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Override
     public DashboardPresenter getPresenter() {
         return dashboardPresenter;
+    }
+
+    @Override
+    public void showLoadingMessage(String message) {
+        showLoadingDialog(message);
     }
 
     @Override
@@ -113,7 +116,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Override
     public void plotAirportMarker(LatLng latLng, String title, String snippet, String tag) {
         Marker airportMarker = getMarker(latLng, title, snippet, tag);
-        BitmapDescriptor markerIcon =  vectorToBitmap(R.drawable.ic_pin, Color.parseColor("#A4C639"));
+        BitmapDescriptor markerIcon =  getBitmapDescriptor(R.drawable.ic_pin);
         airportMarker.setIcon(markerIcon);
         airportMarkers.add(airportMarker);
     }
@@ -123,13 +126,19 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         airportMarkers = new ArrayList<>();
         for(AirportModel airport : airports){
             String iataCode = airport.getIataCode();
-            LatLng userCordinates = new LatLng(airport.getLatitude(), airport.getLongitude());
+            LatLng airportCoordinates = new LatLng(airport.getLatitude(), airport.getLongitude());
             String airportName =  airport.getName();
-            String distanceFromUser = "0km from you";
-            plotAirportMarker(userCordinates, airportName, distanceFromUser, iataCode);
+            String distanceFromUser = getPresenter().getDistanceFromUserMessage(userMarker.getPosition(), airportCoordinates);
+            plotAirportMarker(airportCoordinates, airportName, distanceFromUser, iataCode);
         }
 
+        listenForMarkerClicks();
         goToLocationZoomAnimated(userMarker.getPosition(), 13);
+    }
+
+    @Override
+    public void showAirportsCarousel(List<AirportModel> airport){
+
     }
 
     @Override
@@ -140,5 +149,4 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         }
         return super.onKeyDown(keyCode, event);
     }
-
 }

@@ -12,14 +12,10 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
-
-import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -44,7 +40,6 @@ import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
 import co.za.dvt.airportapp.helpers.PermissionsHelper;
-import co.za.dvt.airportapp.helpers.UnitConverterHelper;
 import co.za.dvt.airportapp.models.AirportModel;
 
 public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
@@ -193,8 +188,8 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
 
-                int bottomMargin = (int) UnitConverterHelper.pixelToDp(20, this);
-                int rightMargin = (int) UnitConverterHelper.pixelToDp(20, this);
+                int bottomMargin =  (int) getResources().getDimension(R.dimen.large_view_margin);
+                int rightMargin = (int) getResources().getDimension(R.dimen.large_view_margin);
                 layoutParams.setMargins(0, 0, rightMargin, bottomMargin);
                 locationButton.setLayoutParams(layoutParams);
             }
@@ -235,36 +230,38 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
             public boolean onMarkerClick(Marker marker) {
                 String selectedMarkerTag = marker.getTag().toString();
 
-                if(selectedMarkerTag.equals(Constants.USER_MARKER_TAG)){
+                if(selectedMarkerTag.equals(Constants.USER_MARKER_TAG))
                     return false;
-                }
 
                 try{
-                    String airportKey = marker.getTag().toString();
+                    int markerIndex = 0;
                     for(Marker airportMarker : airportMarkers){
                         String currentMarkerTag = airportMarker.getTag().toString();
-
-                        if(airportKey.equals(currentMarkerTag)){
-                            // Go to flight schedule for  airportMarker
+                        if(selectedMarkerTag.equals(currentMarkerTag)){
+                            goToAirportPosition(markerIndex);
+                            break;
                         }
+                        ++markerIndex;
                     }
                 }
                 catch (Exception e){
                     Log.e("MARKER_CLICK_ERROR", "Marker click error: "+e);
                 }
-
                 return false;
             }
         });
+    }
+
+    protected void goToAirportPosition(int position){
 
     }
-    protected BitmapDescriptor vectorToBitmap(@DrawableRes int id, @ColorInt int color) {
+
+    protected BitmapDescriptor getBitmapDescriptor(@DrawableRes int id) {
         Drawable vectorDrawable = ResourcesCompat.getDrawable(getResources(), id, null);
         Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
                 vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        DrawableCompat.setTint(vectorDrawable, color);
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
