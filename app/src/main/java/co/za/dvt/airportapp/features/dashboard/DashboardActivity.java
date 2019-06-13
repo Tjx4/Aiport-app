@@ -4,6 +4,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.FrameLayout;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
@@ -27,6 +29,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
     @Inject
     DashboardPresenter dashboardPresenter;
+    private FrameLayout airportsCarouselContainerFl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
     @Override
     protected void initViews() {
-
+        airportsCarouselContainerFl = findViewById(R.id.flAirportsCarouselContainer);
     }
 
     @Override
@@ -69,17 +72,16 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
     @Override
     protected void onRequestListenerSuccess(Location location) {
-        LatLng userCordinates = new LatLng(location.getLatitude(), location.getLongitude());
-        plotUserMarker(userCordinates, getString(R.string.you), getString(R.string.user_location_message));
-        goToLocationZoomNoAnimation(userCordinates, 14);
+        LatLng userCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
+        plotUserMarker(userCoordinates, getString(R.string.you), getString(R.string.user_location_message));
+        goToLocationZoomNoAnimation(userCoordinates, 14);
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        LatLng userCordinates = new LatLng(location.getLatitude(), location.getLongitude());
-
-        if(getPresenter().isMoved25Meters(userCordinates, userMarker.getPosition())){
-            moveUserMarker(userCordinates);
+        LatLng currentCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
+        if(getPresenter().isMoved25Meters(currentCoordinates, userMarker.getPosition())){
+            moveUserMarker(currentCoordinates);
         }
     }
 
@@ -89,17 +91,24 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     }
 
     @Override
-    public void showLoadingMessage(String message) {
+    public void hideFindingAirportsDialog() {
+        hideLoader();
+    }
+
+    @Override
+    public void showFindingAirportsDialog(String message) {
         showLoadingDialog(message);
     }
 
     @Override
-    public void showAirportFindErrorMessage(String errorMessage) {
+    public void hideDialogAndshowAirportFindErrorMessage(String errorMessage) {
+        hideFindingAirportsDialog();
         NotificationHelper.showErrorDialog(this, "", "", "");
     }
 
     @Override
     public void onFindAirportsClicked(View view) {
+        showFindingAirportsDialog(getResources().getString(R.string.finding_airports_message));
         LatLng userCoordinates = userMarker.getPosition();
         int distance = 1; // Find some way to set distance
         getPresenter().findNearbyAirports(userCoordinates, distance);
@@ -138,7 +147,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
     @Override
     public void showAirportsCarousel(List<AirportModel> airport){
-
+        airportsCarouselContainerFl.setVisibility(View.VISIBLE);
     }
 
     @Override

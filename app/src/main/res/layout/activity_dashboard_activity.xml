@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:fitsSystemWindows="true"
     tools:context=".features.dashboard.DashboardActivity">
 
@@ -14,12 +15,22 @@
         android:layout_height="match_parent" />
 
     <ImageButton
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_gravity="center|bottom"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center|top"
         android:layout_margin="@dimen/large_view_margin"
         android:background="@android:color/transparent"
         android:onClick="onFindAirportsClicked"
         android:src="@mipmap/ic_launcher_round"/>
+
+    <FrameLayout
+        android:id="@+id/flAirportsCarouselContainer"
+        android:visibility="gone"
+        android:background="#fff"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="160dp">
+
+    </FrameLayout>
 
 </FrameLayout>
