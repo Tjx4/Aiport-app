@@ -13,13 +13,33 @@
     android:orientation="vertical"
     tools:context=".fragments.LoadingSpinnerFragmentBase">
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/progressBarLoading"
+
+    <RelativeLayout
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:indicatorName="BallScaleRippleIndicator"
-        app:indicatorColor="@color/lightText"/>
+        android:layout_width="45dp"
+        android:layout_height="45dp">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/progressBarLoading"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:indicatorName="BallScaleRippleIndicator"
+            app:indicatorColor="@color/lightText"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="13dp"
+            android:visibility="gone"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_logo_light"/>
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/txtLoading"
