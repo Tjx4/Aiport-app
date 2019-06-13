@@ -10,7 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.List;
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.customViews.CustomLinearLayout;
-import co.za.dvt.airportapp.fragments.StylistFragment;
+import co.za.dvt.airportapp.fragments.AirportFragment;
 
 public class CustomPagerAdapter extends FragmentStatePagerAdapter implements ViewPager.PageTransformer {
     public final static float BIG_SCALE = 1.0f;
@@ -18,18 +18,18 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter implements Vie
     public final static float DIFF_SCALE = BIG_SCALE - SMALL_SCALE;
 
     private Activity mContext;
-    private List<StylistFragment> fragments;
+    private List<AirportFragment> fragments;
     private FragmentManager mFragmentManager;
     private float mScale;
 
-    public CustomPagerAdapter(Activity context, FragmentManager fragmentManager, List<StylistFragment> fragments) {
+    public CustomPagerAdapter(Activity context, FragmentManager fragmentManager, List<AirportFragment> fragments) {
         super(fragmentManager);
         this.mFragmentManager = fragmentManager;
         this.mContext = context;
         this.fragments = fragments;
     }
 
-    public void addFragment(StylistFragment fragment) {
+    public void addFragment(AirportFragment fragment) {
         fragments.add(fragment);
     }
 

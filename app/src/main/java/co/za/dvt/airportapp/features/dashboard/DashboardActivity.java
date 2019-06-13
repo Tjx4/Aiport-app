@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
@@ -15,11 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import co.za.dvt.airportapp.R;
+import co.za.dvt.airportapp.adapters.CustomPagerAdapter;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.di.components.AppComponent;
 import co.za.dvt.airportapp.di.components.DaggerDashboardComponent;
 import co.za.dvt.airportapp.di.modules.DashboardModule;
 import co.za.dvt.airportapp.features.base.activity.BaseMapActivity;
+import co.za.dvt.airportapp.fragments.AirportFragment;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
 import co.za.dvt.airportapp.helpers.TransitionHelper;
 import co.za.dvt.airportapp.models.AirportModel;
@@ -29,6 +32,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Inject
     DashboardPresenter dashboardPresenter;
     private LinearLayout airportsCarouselContainerFl;
+    public ViewPager airportsViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Override
     protected void initViews() {
         airportsCarouselContainerFl = findViewById(R.id.flAirportsCarouselContainer);
+        airportsViewPager = findViewById(R.id.vpAirports);
     }
 
     @Override
@@ -151,8 +156,35 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     }
 
     @Override
-    public void showAirportsCarousel(List<AirportModel> airport){
+    public void showAirportsCarousel(List<AirportModel> airports){
         airportsCarouselContainerFl.setVisibility(View.VISIBLE);
+
+        List<AirportFragment> airportFragments = new ArrayList<>();
+
+        for(AirportModel airport : airports){
+            AirportFragment airportFragment = (AirportFragment)AirportFragment.getInstance(this, airport);
+            airportFragments.add(airportFragment);
+        }
+
+        CustomPagerAdapter stylistsViewPagerAdapter = new CustomPagerAdapter(this, this.getSupportFragmentManager(), airportFragments);
+        stylistsViewPagerAdapter.notifyDataSetChanged();
+        airportsViewPager.setAdapter(stylistsViewPagerAdapter);
+        airportsViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override

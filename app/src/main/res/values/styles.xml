@@ -29,16 +29,29 @@
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>
     </style>
-
+    
     <style name="teamManagerTextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="largeLabel" parent="teamManagerTextView">
+        <item name="android:textSize">@dimen/large_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="largeLightLabel" parent="largeLabel">
+        <item name="android:textColor">@color/lightestText</item>
+    </style>
+    <style name="largeDarkLabel" parent="largeLabel">
+        <item name="android:textColor">@color/darkestText</item>
     </style>
     <style name="mediumLabel" parent="teamManagerTextView">
         <item name="android:textSize">@dimen/medium_text_size</item>
     </style>
     <style name="mediumLightLabel" parent="mediumLabel">
         <item name="android:textColor">@color/lighterText</item>
+    </style>
+    <style name="mediumDarkLabel" parent="mediumLabel">
+        <item name="android:textColor">@color/darkerText</item>
     </style>
 
 </resources>
