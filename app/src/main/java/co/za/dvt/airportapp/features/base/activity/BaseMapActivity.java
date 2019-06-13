@@ -9,7 +9,6 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.gms.common.ConnectionResult;
@@ -31,7 +30,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
-
 import java.util.List;
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
@@ -80,10 +78,6 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
             }
 
         }
-    }
-
-    protected boolean isMovedFiveMeters(LatLng userCordinates){
-        return true;
     }
 
     protected void checkGoogleApi() {
@@ -192,12 +186,13 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
             if(childView != null){
                 View locationButton = ((View) childView.getParent()).findViewById(Integer.parseInt("2"));
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)locationButton.getLayoutParams();
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
 
-                int bottomMarginDp = (int) UnitConverterHelper.pixelToDp(200, this);
-                int marginInDp = (int) UnitConverterHelper.pixelToDp(20, this);
-                layoutParams.setMargins(marginInDp, marginInDp, marginInDp, bottomMarginDp);
+                int bottomMargin = (int) UnitConverterHelper.pixelToDp(20, this);
+                int rightMargin = (int) UnitConverterHelper.pixelToDp(20, this);
+                layoutParams.setMargins(0, 0, rightMargin, bottomMargin);
                 locationButton.setLayoutParams(layoutParams);
             }
         }
@@ -285,6 +280,5 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
         });
 
     }
-
 
 }
