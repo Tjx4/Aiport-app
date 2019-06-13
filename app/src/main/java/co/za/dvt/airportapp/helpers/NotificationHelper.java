@@ -37,7 +37,6 @@ public class NotificationHelper {
     }
 
     private static AlertDialog.Builder setupBasicMessage(Context context, String title, String message, String posiTiveButtonText, boolean showNagativeButton, boolean showNutralButton) {
-
         AlertDialog.Builder ab = new AlertDialog.Builder(context, R.style.AlertDialogCustom);
         ab.setMessage(message)
                 .setTitle(title)

@@ -3,14 +3,23 @@ package co.za.dvt.airportapp.features.base.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -95,10 +104,6 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
 
     protected abstract void initMap();
 
-    @Override
-    public void onLocationChanged(Location location) {
-    }
-
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -162,20 +167,18 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
                         public void onSuccess(Location location) {
-
                             if (location != null) {
-                                LatLng userCordinates = new LatLng(location.getLatitude(), location.getLongitude());
-                                plotUserMarker(userCordinates, getString(R.string.you), getString(R.string.user_location_message));
-                                goToLocationZoomNoAnimation(userCordinates, 16);
+                                onRequestListenerSuccess(location);
                             }
                         }
                     });
-
         }
         else {
             checkLocationPermissionAndContinue();
         }
     }
+
+    protected abstract void onRequestListenerSuccess(Location location);
 
     protected void moveLocationButtonToBottomRight() {
         View mapView = mapFragment.getView();
@@ -226,31 +229,6 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
         return airportMarker;
     }
 
-    protected void plotUserMarker(LatLng latLng, String title, String snippet) {
-        Marker userMarker = getMarker(latLng, title, snippet, Constants.USER_MARKER_TAG);
-        BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.client_marker);
-        userMarker.setIcon(markerIcon);
-        this.userMarker = userMarker;
-    }
-
-    protected void plotAirportMarker(LatLng latLng, String title, String snippet, String tag) {
-        Marker airportMarker = getMarker(latLng, title, snippet, tag);
-        BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.ic_pin);
-        airportMarker.setIcon(markerIcon);
-        airportMarkers.add(airportMarker);
-    }
-
-    protected void plotAirportMarkers(List<AirportModel> airports) {
-        airportMarkers.clear();
-        for(AirportModel airport : airports){
-            String iataCode = airport.getIataCode();
-            LatLng userCordinates = new LatLng(airport.getLatitude(), airport.getLongitude());
-            String airportName =  airport.getName();
-            String distanceFromUser = "0km from you";
-            plotAirportMarker(userCordinates, airportName, distanceFromUser, iataCode);
-        }
-    }
-
     protected void listenForMarkerClicks() {
         googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
@@ -280,5 +258,14 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
         });
 
     }
-
+    protected BitmapDescriptor vectorToBitmap(@DrawableRes int id, @ColorInt int color) {
+        Drawable vectorDrawable = ResourcesCompat.getDrawable(getResources(), id, null);
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        DrawableCompat.setTint(vectorDrawable, color);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
 }

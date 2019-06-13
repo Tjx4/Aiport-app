@@ -45,9 +45,9 @@ public abstract class BaseMapPresenter extends BaseAsyncPresenter{
         return Math.round(distanceInMiters / 1000);
     }
 
-    public boolean isMoved4Meters(LatLng userCordinates, LatLng userLastCoordinates){
-        double distanceMoved = getDistanceInMeters(userCordinates, userLastCoordinates);
-        boolean moved4Meters = distanceMoved > 3;
+    public boolean isMoved25Meters(LatLng newCoordinates, LatLng lastCoordinates){
+        double distanceMoved = getDistanceInMeters(newCoordinates, lastCoordinates);
+        boolean moved4Meters = distanceMoved > 25;
         return moved4Meters;
     }
 }
