@@ -9,7 +9,7 @@ import dagger.Provides;
 public class DashboardModule {
     private DashboardView dashboardView;
 
-    public DashboardModule(DashboardView clientMapView) {
+    public DashboardModule(DashboardView dashboardView) {
         this.dashboardView = dashboardView;
     }
 
