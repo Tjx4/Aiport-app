@@ -22,7 +22,6 @@ public abstract class BaseActivity extends AppCompatActivity implements DaggerAc
         setransparentStatusAndBar();
         getActivityTransition();
         setupComponent(MyApplication.get(this).component());
-        initViews();
     }
 
     @Override

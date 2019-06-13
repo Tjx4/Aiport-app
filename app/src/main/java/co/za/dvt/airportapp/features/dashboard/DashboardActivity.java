@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -29,13 +30,14 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
     @Inject
     DashboardPresenter dashboardPresenter;
-    private FrameLayout airportsCarouselContainerFl;
+    private LinearLayout airportsCarouselContainerFl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard_activity);
         checkLocationPermissionAndContinue();
+        initViews();
     }
 
     @Override
@@ -112,6 +114,11 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         LatLng userCoordinates = userMarker.getPosition();
         int distance = 1; // Find some way to set distance
         getPresenter().findNearbyAirports(userCoordinates, distance);
+    }
+
+    @Override
+    public void onCloseAirpotListClicked(View view) {
+        airportsCarouselContainerFl.setVisibility(View.GONE);
     }
 
     @Override

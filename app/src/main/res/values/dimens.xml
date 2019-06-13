@@ -8,7 +8,7 @@
     <dimen name="small_view_padding">15dp</dimen>
     <dimen name="medium_view_padding">25dp</dimen>
     <dimen name="large_view_padding">35dp</dimen>
-    <dimen name="small_view_margin">15dp</dimen>
+    <dimen name="small_view_margin">10dp</dimen>
     <dimen name="medium_view_margin">25dp</dimen>
     <dimen name="large_view_margin">50dp</dimen>
 </resources>

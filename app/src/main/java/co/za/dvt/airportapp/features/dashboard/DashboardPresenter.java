@@ -47,14 +47,15 @@ airports.add(airport2);
             showAirportsAndPlotMarkers();
         }
         else if(airports != null && airports.size() < 1){
-            dashboardView.showAirportFindErrorMessage("No airports found in your area airports");
+            dashboardView.hideDialogAndshowAirportFindErrorMessage("No airports found in your area airports");
         }
         else {
-            dashboardView.showAirportFindErrorMessage("Error finding airports");
+            dashboardView.hideDialogAndshowAirportFindErrorMessage("Error finding airports");
         }
     }
 
     private void showAirportsAndPlotMarkers(){
+        dashboardView.hideFindingAirportsDialog();
         dashboardView.plotAirportMarkers(airports);
         dashboardView.showAirportsCarousel(airports);
     }

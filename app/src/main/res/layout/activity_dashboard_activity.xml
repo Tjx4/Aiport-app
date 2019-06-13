@@ -23,14 +23,31 @@
         android:onClick="onFindAirportsClicked"
         android:src="@mipmap/ic_launcher_round"/>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/flAirportsCarouselContainer"
         android:visibility="gone"
         android:background="#fff"
         android:layout_gravity="bottom"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="160dp">
+        android:layout_height="wrap_content">
 
-    </FrameLayout>
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/small_view_margin"
+            android:layout_gravity="right"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_close_dark"
+            android:onClick="onCloseAirpotListClicked"/>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpAirports"
+            android:layout_margin="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"/>
+
+    </LinearLayout>
 
 </FrameLayout>

@@ -40,7 +40,6 @@ import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
 import co.za.dvt.airportapp.helpers.PermissionsHelper;
-import co.za.dvt.airportapp.models.AirportModel;
 
 public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     protected SupportMapFragment mapFragment;
@@ -49,11 +48,6 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     protected GoogleApiClient googleApiClient;
     protected List<Marker> airportMarkers;
     protected Marker userMarker;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     protected void checkLocationPermissionAndContinue() {
         if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
