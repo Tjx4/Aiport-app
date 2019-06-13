@@ -162,7 +162,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         List<AirportFragment> airportFragments = new ArrayList<>();
 
         for(AirportModel airport : airports){
-            AirportFragment airportFragment = (AirportFragment)AirportFragment.getInstance(this, airport);
+            AirportFragment airportFragment = AirportFragment.getInstance(this, airport);
             airportFragments.add(airportFragment);
         }
 

@@ -15,7 +15,7 @@ public  class AirportFragment extends Fragment {
 
     private String name;
 
-    public static Fragment getInstance(Activity activity, AirportModel airport) {
+    public static AirportFragment getInstance(Activity activity, AirportModel airport) {
         String distanceFrom = airport.getLatitude()+" "+airport.getLongitude();
 
         Bundle payload = new Bundle();
@@ -23,7 +23,7 @@ public  class AirportFragment extends Fragment {
         payload.putString(Constants.AIRPORT_IATACODE, airport.getIataCode());
         payload.putString(Constants.DISTANCE_FROM_USER, distanceFrom);
 
-        return Fragment.instantiate(activity, AirportFragment.class.getName(), payload);
+        return (AirportFragment)Fragment.instantiate(activity, AirportFragment.class.getName(), payload);
     }
 
     @Override
