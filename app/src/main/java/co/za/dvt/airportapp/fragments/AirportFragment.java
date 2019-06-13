@@ -7,16 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
+import co.za.dvt.airportapp.features.dashboard.DashboardView;
 import co.za.dvt.airportapp.models.AirportModel;
 
-public  class AirportFragment extends Fragment {
-
+public class AirportFragment extends Fragment {
     private String name;
+    private String distanceFromUser;
 
     public static AirportFragment getInstance(Activity activity, AirportModel airport) {
-        String distanceFrom = airport.getLatitude()+" "+airport.getLongitude();
+        DashboardView dashboardView = (DashboardView)activity;
+        LatLng userCoordinates = dashboardView.getUserMarker().getPosition();
+        LatLng airportCoordinates = new LatLng(airport.getLatitude(), airport.getLongitude());
+        String distanceFrom = dashboardView.getPresenter().getDistanceFromUserMessage(userCoordinates, airportCoordinates);
 
         Bundle payload = new Bundle();
         payload.putString(Constants.AIRPORT_NAME, airport.getName());
@@ -32,9 +39,14 @@ public  class AirportFragment extends Fragment {
         View parentView = inflater.inflate(R.layout.fragment_airport, container, false);
 
         name = getArguments().getString(Constants.AIRPORT_NAME);
+        distanceFromUser = getArguments().getString(Constants.DISTANCE_FROM_USER);
 
         TextView airportNameTv = parentView.findViewById(R.id.tvAirportName);
         airportNameTv.setText(name);
+
+        TextView distanceFromUserTv = parentView.findViewById(R.id.tvdistanceFromUser);
+        distanceFromUserTv.setText(distanceFromUser);
+
 
         return parentView;
     }

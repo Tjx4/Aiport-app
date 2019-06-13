@@ -210,44 +210,15 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
                 .flat(true)
                 .anchor(0.5f, 0.5f)
                 .rotation(0)
-                .snippet(snippet)
                 .position(latLng);
+
+        if(snippet != null && !snippet.isEmpty()){
+            markerOptions.snippet(snippet);
+        }
 
         Marker airportMarker = googleMap.addMarker(markerOptions);
         airportMarker.setTag(tag);
         return airportMarker;
-    }
-
-    protected void listenForMarkerClicks() {
-        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                String selectedMarkerTag = marker.getTag().toString();
-
-                if(selectedMarkerTag.equals(Constants.USER_MARKER_TAG))
-                    return false;
-
-                try{
-                    int markerIndex = 0;
-                    for(Marker airportMarker : airportMarkers){
-                        String currentMarkerTag = airportMarker.getTag().toString();
-                        if(selectedMarkerTag.equals(currentMarkerTag)){
-                            goToAirportPosition(markerIndex);
-                            break;
-                        }
-                        ++markerIndex;
-                    }
-                }
-                catch (Exception e){
-                    Log.e("MARKER_CLICK_ERROR", "Marker click error: "+e);
-                }
-                return false;
-            }
-        });
-    }
-
-    protected void goToAirportPosition(int position){
-
     }
 
     protected BitmapDescriptor getBitmapDescriptor(@DrawableRes int id) {

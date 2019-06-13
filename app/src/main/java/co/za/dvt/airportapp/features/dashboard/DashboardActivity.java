@@ -2,6 +2,7 @@ package co.za.dvt.airportapp.features.dashboard;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -32,7 +33,8 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Inject
     DashboardPresenter dashboardPresenter;
     private LinearLayout airportsCarouselContainerFl;
-    public ViewPager airportsViewPager;
+    private ViewPager airportsViewPager;
+    private final int AIRPORT_ZOOM = 13;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,18 +143,22 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     }
 
     @Override
+    public Marker getUserMarker() {
+        return userMarker;
+    }
+
     public void plotAirportMarkers(List<AirportModel> airports) {
         airportMarkers = new ArrayList<>();
         for(AirportModel airport : airports){
             String iataCode = airport.getIataCode();
             LatLng airportCoordinates = new LatLng(airport.getLatitude(), airport.getLongitude());
             String airportName =  airport.getName();
-            String distanceFromUser = getPresenter().getDistanceFromUserMessage(userMarker.getPosition(), airportCoordinates);
-            plotAirportMarker(airportCoordinates, airportName, distanceFromUser, iataCode);
+//String distanceFromUser = getPresenter().getDistanceFromUserMessage(userMarker.getPosition(), airportCoordinates);
+            plotAirportMarker(airportCoordinates, airportName, null, iataCode);
         }
 
         listenForMarkerClicks();
-        goToLocationZoomAnimated(userMarker.getPosition(), 13);
+        goToLocationZoomAnimated(airportMarkers.get(0).getPosition(), AIRPORT_ZOOM);
     }
 
     @Override
@@ -160,7 +166,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         airportsCarouselContainerFl.setVisibility(View.VISIBLE);
 
         List<AirportFragment> airportFragments = new ArrayList<>();
-
         for(AirportModel airport : airports){
             AirportFragment airportFragment = AirportFragment.getInstance(this, airport);
             airportFragments.add(airportFragment);
@@ -177,7 +182,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
             @Override
             public void onPageSelected(int position) {
-
+                goToLocationZoomAnimated(airportMarkers.get(position).getPosition(), AIRPORT_ZOOM);
             }
 
             @Override
@@ -185,6 +190,38 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
             }
         });
+    }
+
+    protected void listenForMarkerClicks() {
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String selectedMarkerTag = marker.getTag().toString();
+
+                if(selectedMarkerTag.equals(Constants.USER_MARKER_TAG))
+                    return false;
+
+                try{
+                    int markerIndex = 0;
+                    for(Marker airportMarker : airportMarkers){
+                        String currentMarkerTag = airportMarker.getTag().toString();
+                        if(selectedMarkerTag.equals(currentMarkerTag)){
+                            goToAirportPosition(markerIndex);
+                            break;
+                        }
+                        ++markerIndex;
+                    }
+                }
+                catch (Exception e){
+                    Log.e("MARKER_CLICK_ERROR", "Marker click error: "+e);
+                }
+                return false;
+            }
+        });
+    }
+
+    protected void goToAirportPosition(int position){
+        airportsViewPager.setCurrentItem(position);
     }
 
     @Override
