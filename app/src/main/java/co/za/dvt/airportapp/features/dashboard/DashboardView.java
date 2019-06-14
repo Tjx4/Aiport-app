@@ -14,6 +14,7 @@ public interface DashboardView extends BaseView {
     void onCloseAirpotListClicked(View view);
     void hideFindingAirportsDialog();
     void showFindingAirportsDialog(String message);
+    void showAirportsResultCount(String message);
     void hideDialogAndshowAirportFindErrorMessage(String errorMessage);
     void plotUserMarker(LatLng latLng, String title, String snippet);
     void plotAirportMarker(LatLng latLng, String title, String snippet, String tag);

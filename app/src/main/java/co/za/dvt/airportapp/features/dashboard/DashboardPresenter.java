@@ -77,10 +77,21 @@ airports.add(airport3);
         }
     }
 
-    private void showAirportsAndPlotMarkers(){
+    public void showAirportsAndPlotMarkers(){
         dashboardView.hideFindingAirportsDialog();
         dashboardView.plotAirportMarkers(airports);
         dashboardView.showAirportsCarousel(airports);
+    }
+
+    public String getResutsMessage(int total, int currentPosition){
+        int airportNumber = ++currentPosition;
+        String message = "1 airport found";
+
+        if(total > 1){
+            message = airportNumber+" of "+total+" airports found";
+        }
+
+        return message;
     }
 
     protected List<AirportModel> sortAirportsByDistance(final List<AirportModel> stylists, final LatLng userPosition) {

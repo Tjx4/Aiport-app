@@ -32,16 +32,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
-            android:padding="8dp"
-            android:layout_gravity="right"
-            android:background="@android:color/transparent"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_close_dark"
-            android:onClick="onCloseAirpotListClicked"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/mediumDarkEditText"
+                android:id="@+id/tvResults"
+                android:gravity="center"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_close_dark"
+                android:onClick="onCloseAirpotListClicked"/>
+
+        </RelativeLayout>
+
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpAirports"

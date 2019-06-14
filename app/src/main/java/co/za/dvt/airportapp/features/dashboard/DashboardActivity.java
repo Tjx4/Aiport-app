@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -34,6 +36,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     DashboardPresenter dashboardPresenter;
     private LinearLayout airportsCarouselContainerFl;
     private ViewPager airportsViewPager;
+    private TextView resultsTv;
     private final int AIRPORT_ZOOM = 13;
     private final int USER_ZOOM = 14;
 
@@ -59,6 +62,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     protected void initViews() {
         airportsCarouselContainerFl = findViewById(R.id.flAirportsCarouselContainer);
         airportsViewPager = findViewById(R.id.vpAirports);
+        resultsTv = findViewById(R.id.tvResults);
     }
 
     @Override
@@ -103,7 +107,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         hideLoader();
     }
 
-    @Override
     public void showFindingAirportsDialog(String message) {
         showLoadingDialog(message);
     }
@@ -154,7 +157,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
             String iataCode = airport.getIataCode();
             LatLng airportCoordinates = new LatLng(airport.getLatitude(), airport.getLongitude());
             String airportName =  airport.getName();
-//String distanceFromUser = getPresenter().getDistanceFromUserMessage(userMarker.getPosition(), airportCoordinates);
             plotAirportMarker(airportCoordinates, airportName, null, iataCode);
         }
 
@@ -163,7 +165,12 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     }
 
     @Override
-    public void showAirportsCarousel(List<AirportModel> airports){
+    public void showAirportsResultCount(String message) {
+        resultsTv.setText(message);
+    }
+
+    @Override
+    public void showAirportsCarousel(final List<AirportModel> airports){
         airportsCarouselContainerFl.setVisibility(View.VISIBLE);
 
         List<AirportFragment> airportFragments = new ArrayList<>();
@@ -184,6 +191,8 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
             @Override
             public void onPageSelected(int position) {
                 goToLocationZoomAnimated(airportMarkers.get(position).getPosition(), AIRPORT_ZOOM);
+                String message = getPresenter().getResutsMessage(airports.size(), position);
+                showAirportsResultCount(message);
             }
 
             @Override
@@ -191,6 +200,9 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
             }
         });
+
+        String message = getPresenter().getResutsMessage(airports.size(), 0);
+        showAirportsResultCount(message);
     }
 
     protected void listenForMarkerClicks() {
