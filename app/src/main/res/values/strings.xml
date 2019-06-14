@@ -10,4 +10,5 @@
     <string name="you">You</string>
     <string name="user_location_message">This is your location</string>
     <string name="finding_airports_message">Finding airports...</string>
+    <string name="find_nearby_airports_message">Welcome, please click the button to find airports nearby</string>
 </resources>

@@ -189,7 +189,7 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
                 layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
 
-                int bottomMargin =  (int) getResources().getDimension(R.dimen.large_view_margin);
+                int bottomMargin =  (int) getResources().getDimension(R.dimen.xlarge_view_margin);
                 int rightMargin = (int) getResources().getDimension(R.dimen.large_view_margin);
                 layoutParams.setMargins(0, 0, rightMargin, bottomMargin);
                 locationButton.setLayoutParams(layoutParams);

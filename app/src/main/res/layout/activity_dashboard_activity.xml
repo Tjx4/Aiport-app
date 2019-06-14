@@ -25,7 +25,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/small_view_margin"
                 android:layout_marginLeft="@dimen/small_view_margin"
-                android:text="Welcome, please click the button to find airports"/>
+                android:text="@string/find_nearby_airports_message"/>
 
             <ImageButton
                 style="@style/searchButton"

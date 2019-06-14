@@ -69,8 +69,8 @@
     <style name="searchContainer">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center|top</item>
-        <item name="android:layout_marginTop">@dimen/large_view_margin</item>
+        <item name="android:layout_gravity">center|bottom</item>
+        <item name="android:layout_marginBottom">@dimen/large_view_margin</item>
         <item name="android:layout_marginLeft">@dimen/medium_view_margin</item>
         <item name="android:layout_marginRight">@dimen/medium_view_margin</item>
         <item name="android:padding">@dimen/small_view_padding</item>
