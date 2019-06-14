@@ -15,4 +15,5 @@
     <color name="transBlack">#BA000000</color>
     <color name="darkBackground">#222</color>
     <color name="lightBackground">#FFF</color>
+    <color name="departuresBackground">#EEE</color>
 </resources>

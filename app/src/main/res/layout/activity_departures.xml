@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".features.departures.DeparturesActivity"
+    android:background="@color/departuresBackground"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -53,6 +54,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="40dp"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:navigationIcon="@drawable/abc_ic_ab_back_material"
                 app:layout_collapseMode="pin" />

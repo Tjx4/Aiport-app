@@ -16,7 +16,8 @@
 
         <RelativeLayout
             android:id="@+id/llSearchContainer"
-            style="@style/searchContainer">
+            style="@style/searchContainer"
+            android:clickable="true">
             <TextView
                 android:layout_toLeftOf="@+id/imgBtnFind"
                 style="@style/mediumDarkEditText"
@@ -39,6 +40,7 @@
 
         <LinearLayout
             android:id="@+id/flAirportsCarouselContainer"
+            android:clickable="true"
             android:visibility="gone"
             android:background="@color/lightBackground"
             android:layout_gravity="bottom"
