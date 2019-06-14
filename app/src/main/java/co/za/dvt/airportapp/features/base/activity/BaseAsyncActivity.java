@@ -13,7 +13,7 @@ public abstract class BaseAsyncActivity extends BaseActivity{
     }
 
     protected void showLoadingDialog(String loadingMessage) {
-        loadingDialogFragment = new LoadingSpinnerFragmentBase();
+        loadingDialogFragment = LoadingSpinnerFragmentBase.getInstance(this);
         NotificationHelper.showFragmentDialog(this, loadingMessage, R.layout.fragment_loading_spinner, loadingDialogFragment);
     }
 }

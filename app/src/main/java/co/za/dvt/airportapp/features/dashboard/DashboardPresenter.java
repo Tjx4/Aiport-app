@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+
+import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.features.base.presenter.BaseMapPresenter;
 import co.za.dvt.airportapp.models.AirportModel;
@@ -41,23 +43,24 @@ public class DashboardPresenter extends BaseMapPresenter {
                 if(response.isSuccessful()){
                     NearbyAirpoprtsModel nearbyAirpoprtsModel = response.body();
 
-                    if(response.isSuccessful()){
-                        sortAirportsByDistance(airports, userCoordinates);
+                    if(nearbyAirpoprtsModel.getAirports().size() > 0){
+                        sortAirportsByDistance(nearbyAirpoprtsModel.getAirports(), userCoordinates);
                         plotMarkersAndShowAirports();
+                        airports = nearbyAirpoprtsModel.getAirports();
                     }
                     else{
-                        dashboardView.hideDialogAndshowAirportFindErrorMessage("Error finding airports");
+                        dashboardView.hideDialogAndshowAirportFindErrorMessage(context.getResources().getString(R.string.no_airports_message));
                     }
                 }
                 else{
-                    dashboardView.hideDialogAndshowAirportFindErrorMessage("Error finding airports");
+                    dashboardView.hideDialogAndshowAirportFindErrorMessage(context.getResources().getString(R.string.error_finding_airports));
                 }
                 isBusy = false;
             }
 
             @Override
             public void onFailure(Call<NearbyAirpoprtsModel> call, Throwable t) {
-                dashboardView.hideDialogAndshowAirportFindErrorMessage("Error finding airports");
+                dashboardView.hideDialogAndshowAirportFindErrorMessage(context.getResources().getString(R.string.error_finding_airports));
                 isBusy = false;
             }
         });
@@ -66,7 +69,7 @@ public class DashboardPresenter extends BaseMapPresenter {
     public void findMockAirports(LatLng userCoordinates, int distance) {
         airports = new ArrayList<>();
 
-/*
+
 double dlat = userCoordinates.latitude + 0.1f;
 double dlong = userCoordinates.longitude + 0.2f;
 AirportModel airport = new AirportModel();
@@ -93,16 +96,16 @@ airport3.setIataCode("MSA");
 airport3.setLatitude(dlat);
 airport3.setLongitude(dlong);
 airports.add(airport3);
-*/
+
         if(airports != null && airports.size() > 0){
             sortAirportsByDistance(airports, userCoordinates);
             //plotMarkersAndShowAirports();
         }
         else if(airports != null && airports.size() < 1){
-            dashboardView.hideDialogAndshowAirportFindErrorMessage("No airports found in your area airports");
+            dashboardView.hideDialogAndshowAirportFindErrorMessage(context.getResources().getString(R.string.no_airports_message));
         }
         else {
-            dashboardView.hideDialogAndshowAirportFindErrorMessage("Error finding airports");
+            dashboardView.hideDialogAndshowAirportFindErrorMessage(context.getResources().getString(R.string.error_finding_airports));
         }
     }
 
