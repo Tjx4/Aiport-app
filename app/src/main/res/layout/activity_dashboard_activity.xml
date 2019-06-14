@@ -14,73 +14,78 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <RelativeLayout
+        android:id="@+id/llSearchContainer"
+        style="@style/searchContainer"
+        android:clickable="true">
+        <TextView
+            android:layout_toLeftOf="@+id/imgBtnFind"
+            style="@style/mediumDarkEditText"
+            android:textSize="@dimen/search_text_size"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/small_view_margin"
+            android:layout_marginLeft="@dimen/small_view_margin"
+            android:text="@string/find_nearby_airports_message"/>
+
+        <ImageButton
+            style="@style/searchButton"
+            android:id="@+id/imgBtnFind"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:onClick="onFindAirportsClicked"
+            android:src="@drawable/ic_airport_find"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/flAirportsCarouselContainer"
+        android:clickable="true"
+        android:visibility="gone"
+        android:background="@color/lightBackground"
+        android:layout_gravity="bottom"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <RelativeLayout
-            android:id="@+id/llSearchContainer"
-            style="@style/searchContainer"
-            android:clickable="true">
-            <TextView
-                android:layout_toLeftOf="@+id/imgBtnFind"
-                style="@style/mediumDarkEditText"
-                android:textSize="@dimen/search_text_size"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/small_view_margin"
-                android:layout_marginLeft="@dimen/small_view_margin"
-                android:text="@string/find_nearby_airports_message"/>
-
-            <ImageButton
-                style="@style/searchButton"
-                android:id="@+id/imgBtnFind"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:onClick="onFindAirportsClicked"
-                android:src="@drawable/ic_airport_find"/>
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/flAirportsCarouselContainer"
-            android:clickable="true"
-            android:visibility="gone"
-            android:background="@color/lightBackground"
-            android:layout_gravity="bottom"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <TextView
+                style="@style/mediumDarkEditText"
+                android:id="@+id/tvResults"
+                android:gravity="center"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/darkText"/>
 
-                <TextView
-                    style="@style/mediumDarkEditText"
-                    android:id="@+id/tvResults"
-                    android:gravity="center"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/darkText"/>
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:padding="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_close_dark"
+                android:onClick="onCloseAirpotListClicked"/>
 
-                <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_margin="5dp"
-                    android:padding="8dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_close_dark"
-                    android:onClick="onCloseAirpotListClicked"/>
+        </RelativeLayout>
 
-            </RelativeLayout>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpAirports"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/vpAirports"
-                android:layout_marginBottom="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"/>
+    </LinearLayout>
 
-        </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/colorPrimaryDark" />
 
 </FrameLayout>

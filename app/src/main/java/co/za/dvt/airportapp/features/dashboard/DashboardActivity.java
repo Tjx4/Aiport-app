@@ -119,7 +119,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Override
     public void hideDialogAndshowAirportFindErrorMessage(String errorMessage) {
         hideFindingAirportsDialog();
-        NotificationHelper.showErrorDialog(this, "", "", "");
+        NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), errorMessage,  getResources().getString(R.string.ok));
     }
 
     @Override

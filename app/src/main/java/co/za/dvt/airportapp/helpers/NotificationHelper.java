@@ -85,8 +85,8 @@ public class NotificationHelper {
         a.requestWindowFeature(Window.FEATURE_NO_TITLE);
         a.show();
 
-        a.getButton(a.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.lightText));
-        a.getButton(a.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(R.color.lightText));
-        a.getButton(a.BUTTON_NEUTRAL).setTextColor(context.getResources().getColor(R.color.lightText));
+        a.getButton(a.BUTTON_NEGATIVE).setTextColor(context.getResources().getColor(R.color.darkerText));
+        a.getButton(a.BUTTON_POSITIVE).setTextColor(context.getResources().getColor(R.color.darkerText));
+        a.getButton(a.BUTTON_NEUTRAL).setTextColor(context.getResources().getColor(R.color.darkerText));
     }
 }

@@ -66,7 +66,7 @@ public class DashboardPresenter extends BaseMapPresenter {
     public void findMockAirports(LatLng userCoordinates, int distance) {
         airports = new ArrayList<>();
 
-
+/*
 double dlat = userCoordinates.latitude + 0.1f;
 double dlong = userCoordinates.longitude + 0.2f;
 AirportModel airport = new AirportModel();
@@ -93,10 +93,10 @@ airport3.setIataCode("MSA");
 airport3.setLatitude(dlat);
 airport3.setLongitude(dlong);
 airports.add(airport3);
-
+*/
         if(airports != null && airports.size() > 0){
             sortAirportsByDistance(airports, userCoordinates);
-            plotMarkersAndShowAirports();
+            //plotMarkersAndShowAirports();
         }
         else if(airports != null && airports.size() < 1){
             dashboardView.hideDialogAndshowAirportFindErrorMessage("No airports found in your area airports");

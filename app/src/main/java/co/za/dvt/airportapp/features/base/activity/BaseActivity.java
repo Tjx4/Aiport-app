@@ -32,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity implements DaggerAc
 
     private void setransparentStatusAndBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
     }
