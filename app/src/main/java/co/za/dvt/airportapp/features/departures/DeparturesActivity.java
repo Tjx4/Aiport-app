@@ -23,7 +23,7 @@ public class DeparturesActivity extends BaseChildActivity {
         setContentView(R.layout.activity_departures);
         initViews();
 
-String iataCode = getIntent().getBundleExtra(Constants.PAYLOAD_KEY).get(Constants.AIRPORT_IATACODE).toString();
+        String iataCode = getIntent().getBundleExtra(Constants.PAYLOAD_KEY).get(Constants.AIRPORT_IATACODE).toString();
 NotificationHelper.showShortToast(this, iataCode);
     }
 

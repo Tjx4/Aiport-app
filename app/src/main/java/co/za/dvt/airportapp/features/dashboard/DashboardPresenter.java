@@ -99,7 +99,7 @@ airports.add(airport3);
 
         if(airports != null && airports.size() > 0){
             sortAirportsByDistance(airports, userCoordinates);
-            //plotMarkersAndShowAirports();
+            plotMarkersAndShowAirports();
         }
         else if(airports != null && airports.size() < 1){
             dashboardView.hideDialogAndshowAirportFindErrorMessage(context.getResources().getString(R.string.no_airports_message));

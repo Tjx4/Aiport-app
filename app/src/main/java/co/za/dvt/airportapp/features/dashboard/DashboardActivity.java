@@ -159,6 +159,8 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
     public void plotAirportMarkers(List<AirportModel> airports) {
         airportMarkers = new ArrayList<>();
+        googleMap.clear();
+
         for(AirportModel airport : airports){
             String iataCode = airport.getIataCode();
             LatLng airportCoordinates = new LatLng(airport.getLatitude(), airport.getLongitude());
