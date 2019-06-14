@@ -9,7 +9,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="TransStatusbarTheme" parent="NoActionBarTheme">
+    <style name="TransStatusBarTheme" parent="NoActionBarTheme">
     </style>
     <style name="SplashTheme" parent="NoActionBarTheme">
         <item name="android:background">@drawable/splash_background</item>
@@ -83,4 +83,10 @@
         <item name="android:scaleType">fitXY</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+    <style name="CollapsedAppBarLarge" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">@dimen/large_text_size</item>
+        <item name="android:textColor">@color/lightestText</item>
+    </style>
+
 </resources>
