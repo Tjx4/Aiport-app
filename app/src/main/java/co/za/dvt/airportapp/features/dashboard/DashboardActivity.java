@@ -26,7 +26,9 @@ import co.za.dvt.airportapp.di.components.AppComponent;
 import co.za.dvt.airportapp.di.components.DaggerDashboardComponent;
 import co.za.dvt.airportapp.di.modules.DashboardModule;
 import co.za.dvt.airportapp.features.base.activity.BaseMapActivity;
+import co.za.dvt.airportapp.features.departures.DeparturesActivity;
 import co.za.dvt.airportapp.fragments.AirportFragment;
+import co.za.dvt.airportapp.helpers.NavigationHelper;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
 import co.za.dvt.airportapp.helpers.TransitionHelper;
 import co.za.dvt.airportapp.models.AirportModel;
@@ -208,6 +210,13 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
         String message = getPresenter().getResutsMessage(airports.size(), 0);
         showAirportsResultCount(message);
+    }
+
+    @Override
+    public void goToDepartures(String iataCode) {
+        Bundle payload = new Bundle();
+        payload.putString(Constants.AIRPORT_IATACODE, iataCode);
+        NavigationHelper.goToActivityWithPayload(this, DeparturesActivity.class, payload, TransitionHelper.slideInActivity());
     }
 
     protected void listenForMarkerClicks() {

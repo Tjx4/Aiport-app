@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -16,6 +17,7 @@ import co.za.dvt.airportapp.models.AirportModel;
 public class AirportFragment extends Fragment {
     private String name;
     private String distanceFromUser;
+    private String iataCode;
 
     public static AirportFragment getInstance(Activity activity, AirportModel airport) {
         DashboardView dashboardView = (DashboardView)activity;
@@ -37,12 +39,23 @@ public class AirportFragment extends Fragment {
         View parentView = inflater.inflate(R.layout.fragment_airport, container, false);
         TextView airportNameTv = parentView.findViewById(R.id.tvAirportName);
         TextView distanceFromUserTv = parentView.findViewById(R.id.tvdistanceFromUser);
+        Button departuresBtn = parentView.findViewById(R.id.btnDepartures);
 
         name = getArguments().getString(Constants.AIRPORT_NAME);
         distanceFromUser = getArguments().getString(Constants.DISTANCE_FROM_USER);
+        iataCode = getArguments().getString(Constants.AIRPORT_IATACODE);
 
         airportNameTv.setText(name);
         distanceFromUserTv.setText(distanceFromUser);
+
+        departuresBtn.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                DashboardView dashboardView = (DashboardView)getActivity();
+                dashboardView.goToDepartures(iataCode);
+            }
+        });
 
         return parentView;
     }

@@ -48,6 +48,7 @@
         </RelativeLayout>
 
         <Button
+            android:id="@+id/btnDepartures"
             style="@style/mediumButton"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/small_view_margin"
