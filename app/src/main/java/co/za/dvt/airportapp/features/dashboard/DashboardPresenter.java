@@ -4,9 +4,15 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.features.base.presenter.BaseMapPresenter;
 import co.za.dvt.airportapp.models.AirportModel;
+import co.za.dvt.airportapp.models.NearbyAirpoprtsModel;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashboardPresenter extends BaseMapPresenter {
     private DashboardView dashboardView;
@@ -17,25 +23,48 @@ public class DashboardPresenter extends BaseMapPresenter {
         this.dashboardView = dashboardView;
     }
 
-    public String getDistanceFromUserMessage(LatLng userCoordinates, LatLng airportCoordinates) {
+    public void findAirports(final LatLng userCoordinates, int distance) {
+        if(isBusy)
+            return;
 
-        double distance = getDistanceInMeters(userCoordinates, airportCoordinates);
-        String unit = "meters";
+        airports = new ArrayList<>();
 
-        if(distance >= 1000) {
-            distance = getDistanceInKm(userCoordinates, airportCoordinates);
-            unit = "Km";
-        }
+        HashMap<String, String> payload = new HashMap<>();
+        payload.put(Constants.LAT, String.valueOf(userCoordinates.latitude));
+        payload.put(Constants.LNG, String.valueOf(userCoordinates.longitude));
+        payload.put(Constants.DISTANCE, String.valueOf(distance));
 
-        distance = Math.round(distance);
-        String distanceMessage = distance+""+unit+" away";
+        Call<NearbyAirpoprtsModel> call1 = retrofitHelper.getNearbyAirports(apiKey, payload);
+        call1.enqueue(new Callback<NearbyAirpoprtsModel>() {
+            @Override
+            public void onResponse(Call<NearbyAirpoprtsModel> call, Response<NearbyAirpoprtsModel> response) {
+                if(response.isSuccessful()){
+                    NearbyAirpoprtsModel nearbyAirpoprtsModel = response.body();
 
-        return  distanceMessage;
+                    if(response.isSuccessful()){
+                        sortAirportsByDistance(airports, userCoordinates);
+                        plotMarkersAndShowAirports();
+                    }
+                    else{
+                        dashboardView.hideDialogAndshowAirportFindErrorMessage("Error finding airports");
+                    }
+                }
+                else{
+                    dashboardView.hideDialogAndshowAirportFindErrorMessage("Error finding airports");
+                }
+                isBusy = false;
+            }
+
+            @Override
+            public void onFailure(Call<NearbyAirpoprtsModel> call, Throwable t) {
+                dashboardView.hideDialogAndshowAirportFindErrorMessage("Error finding airports");
+                isBusy = false;
+            }
+        });
     }
 
-    public void findNearbyAirports(LatLng userCoordinates, int distance) {
+    public void findMockAirports(LatLng userCoordinates, int distance) {
         airports = new ArrayList<>();
-        // apiKey userCoordinates, int distance
 
 
 double dlat = userCoordinates.latitude + 0.1f;
@@ -67,7 +96,7 @@ airports.add(airport3);
 
         if(airports != null && airports.size() > 0){
             sortAirportsByDistance(airports, userCoordinates);
-            showAirportsAndPlotMarkers();
+            plotMarkersAndShowAirports();
         }
         else if(airports != null && airports.size() < 1){
             dashboardView.hideDialogAndshowAirportFindErrorMessage("No airports found in your area airports");
@@ -77,7 +106,7 @@ airports.add(airport3);
         }
     }
 
-    public void showAirportsAndPlotMarkers(){
+    public void plotMarkersAndShowAirports(){
         dashboardView.hideFindingAirportsDialog();
         dashboardView.plotAirportMarkers(airports);
         dashboardView.showAirportsCarousel(airports);
@@ -92,6 +121,22 @@ airports.add(airport3);
         }
 
         return message;
+    }
+
+    public String getDistanceFromUserMessage(LatLng userCoordinates, LatLng airportCoordinates) {
+
+        double distance = getDistanceInMeters(userCoordinates, airportCoordinates);
+        String unit = "meters";
+
+        if(distance >= 1000) {
+            distance = getDistanceInKm(userCoordinates, airportCoordinates);
+            unit = "Km";
+        }
+
+        distance = Math.round(distance);
+        String distanceMessage = distance+""+unit+" away";
+
+        return  distanceMessage;
     }
 
     protected List<AirportModel> sortAirportsByDistance(final List<AirportModel> stylists, final LatLng userPosition) {

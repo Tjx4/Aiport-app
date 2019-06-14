@@ -32,8 +32,8 @@
     </style>
 
     <style name="airportAppButton">
-        <item name="android:layout_width">@dimen/departure_button_width</item>
-        <item name="android:layout_height">@dimen/departure_button_height</item>
+        <item name="android:layout_width">@dimen/departure_button_size</item>
+        <item name="android:layout_height">@dimen/departure_button_size</item>
         <item name="android:paddingLeft">@dimen/departure_button_padding</item>
         <item name="android:paddingRight">@dimen/departure_button_padding</item>
     </style>
@@ -65,5 +65,22 @@
     </style>
     <style name="mediumDarkEditText" parent="mediumTextView">
         <item name="android:textColor">@color/darkerText</item>
+    </style>
+    <style name="searchContainer">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center|top</item>
+        <item name="android:layout_marginTop">@dimen/large_view_margin</item>
+        <item name="android:layout_marginLeft">@dimen/medium_view_margin</item>
+        <item name="android:layout_marginRight">@dimen/medium_view_margin</item>
+        <item name="android:padding">@dimen/small_view_padding</item>
+        <item name="android:background">@drawable/search_container_background</item>
+    </style>
+
+    <style name="searchButton">
+        <item name="android:layout_width">@dimen/search_button_size</item>
+        <item name="android:layout_height">@dimen/search_button_size</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>

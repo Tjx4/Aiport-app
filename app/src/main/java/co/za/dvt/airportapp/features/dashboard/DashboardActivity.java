@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
@@ -35,6 +36,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Inject
     DashboardPresenter dashboardPresenter;
     private LinearLayout airportsCarouselContainerFl;
+    private RelativeLayout searchContainerLl;
     private ViewPager airportsViewPager;
     private TextView resultsTv;
     private final int AIRPORT_ZOOM = 13;
@@ -61,6 +63,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Override
     protected void initViews() {
         airportsCarouselContainerFl = findViewById(R.id.flAirportsCarouselContainer);
+        searchContainerLl = findViewById(R.id.llSearchContainer);
         airportsViewPager = findViewById(R.id.vpAirports);
         resultsTv = findViewById(R.id.tvResults);
     }
@@ -122,12 +125,13 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         showFindingAirportsDialog(getResources().getString(R.string.finding_airports_message));
         LatLng userCoordinates = userMarker.getPosition();
         int distance = 1; // Find some way to set distance
-        getPresenter().findNearbyAirports(userCoordinates, distance);
+        getPresenter().findMockAirports(userCoordinates, distance);
     }
 
     @Override
     public void onCloseAirpotListClicked(View view) {
         airportsCarouselContainerFl.setVisibility(View.GONE);
+        searchContainerLl.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -172,6 +176,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Override
     public void showAirportsCarousel(final List<AirportModel> airports){
         airportsCarouselContainerFl.setVisibility(View.VISIBLE);
+        searchContainerLl.setVisibility(View.GONE);
 
         List<AirportFragment> airportFragments = new ArrayList<>();
         for(AirportModel airport : airports){
@@ -219,6 +224,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
                     for(Marker airportMarker : airportMarkers){
                         String currentMarkerTag = airportMarker.getTag().toString();
                         if(selectedMarkerTag.equals(currentMarkerTag)){
+                            airportsCarouselContainerFl.setVisibility(View.VISIBLE);
                             goToAirportPosition(markerIndex);
                             break;
                         }

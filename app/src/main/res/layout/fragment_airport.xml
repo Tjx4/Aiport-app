@@ -17,8 +17,8 @@
 
             <ImageView
                 android:id="@+id/imgAirportIcon"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="@dimen/airport_icon_size"
+                android:layout_height="@dimen/airport_icon_size"
                 android:scaleType="fitCenter"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -50,8 +50,8 @@
         <Button
             style="@style/mediumButton"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/medium_view_margin"
-            android:layout_marginBottom="@dimen/medium_view_margin"
+            android:layout_marginTop="@dimen/small_view_margin"
+            android:layout_marginBottom="@dimen/small_view_margin"
             android:text="Departures" />
     </LinearLayout>
 

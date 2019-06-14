@@ -9,7 +9,9 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.PersistableBundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -46,6 +48,12 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     protected GoogleApiClient googleApiClient;
     protected List<Marker> airportMarkers;
     protected Marker userMarker;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
 
     protected void checkLocationPermissionAndContinue() {
         if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){

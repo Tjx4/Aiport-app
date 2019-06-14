@@ -11,10 +11,10 @@
                 android:color="@color/colorAccent" />
 
             <corners
-                android:bottomRightRadius="@dimen/medium_button_courner_radius"
-                android:bottomLeftRadius="@dimen/medium_button_courner_radius"
-                android:topLeftRadius="@dimen/medium_button_courner_radius"
-                android:topRightRadius="@dimen/medium_button_courner_radius"/>
+                android:bottomRightRadius="@dimen/medium_button_corner_radius"
+                android:bottomLeftRadius="@dimen/medium_button_corner_radius"
+                android:topLeftRadius="@dimen/medium_button_corner_radius"
+                android:topRightRadius="@dimen/medium_button_corner_radius"/>
         </shape>
     </item>
     <item android:state_pressed="true">
@@ -28,10 +28,10 @@
                 android:color="@color/colorAccent" />
 
             <corners
-                android:bottomRightRadius="@dimen/medium_button_courner_radius"
-                android:bottomLeftRadius="@dimen/medium_button_courner_radius"
-                android:topLeftRadius="@dimen/medium_button_courner_radius"
-                android:topRightRadius="@dimen/medium_button_courner_radius"/>
+                android:bottomRightRadius="@dimen/medium_button_corner_radius"
+                android:bottomLeftRadius="@dimen/medium_button_corner_radius"
+                android:topLeftRadius="@dimen/medium_button_corner_radius"
+                android:topRightRadius="@dimen/medium_button_corner_radius"/>
         </shape>
     </item>
 </selector>
