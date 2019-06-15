@@ -48,8 +48,7 @@
                         android:layout_toRightOf="@+id/imgUserProfpic"
                         android:layout_toLeftOf="@+id/llDepartureDestinationContainer"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:text="South Arican Airways"/>
+                        android:layout_marginLeft="10dp"/>
 
                     <LinearLayout
                         android:id="@+id/llDepartureDestinationContainer"
@@ -73,8 +72,7 @@
                             android:id="@+id/tvDepartureDestination"
                             style="@style/smallDarkTextView"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="6dp"
-                            android:text="Departed"/>
+                            android:layout_marginLeft="6dp"/>
 
                     </LinearLayout>
 
@@ -102,8 +100,7 @@
 
                     <TextView
                         android:id="@+id/tvDepartureTime"
-                        style="@style/airLineTextView"
-                        android:text="05:30"/>
+                        style="@style/airLineTextView"/>
 
                 </LinearLayout>
 
@@ -117,8 +114,7 @@
 
                     <TextView
                         android:id="@+id/tvFlightNumber"
-                        style="@style/airLineTextView"
-                        android:text="SA303"/>
+                        style="@style/airLineTextView"/>
 
                 </LinearLayout>
 
@@ -132,8 +128,7 @@
 
                     <TextView
                         android:id="@+id/tvDestination"
-                        style="@style/airLineTextView"
-                        android:text="Cape Town"/>
+                        style="@style/airLineTextView"/>
 
                 </LinearLayout>
 

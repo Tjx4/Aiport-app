@@ -17,6 +17,7 @@ import co.za.dvt.airportapp.models.AirportModel;
 
 public class AirportFragment extends Fragment {
     private String name;
+    private String location;
     private String distanceFromUser;
     private String iataCode;
 
@@ -28,6 +29,7 @@ public class AirportFragment extends Fragment {
 
         Bundle payload = new Bundle();
         payload.putString(Constants.AIRPORT_NAME, airport.getNameAirport());
+        payload.putString(Constants.AIRPORT_LOCATION, airport.getNameCountry());
         payload.putString(Constants.AIRPORT_IATACODE, airport.getCodeIataAirport());
         payload.putString(Constants.DISTANCE_FROM_USER, distanceFrom);
 
@@ -43,6 +45,7 @@ public class AirportFragment extends Fragment {
         Button departuresBtn = parentView.findViewById(R.id.btnDepartures);
 
         name = getArguments().getString(Constants.AIRPORT_NAME);
+        location = getArguments().getString(Constants.AIRPORT_LOCATION);
         distanceFromUser = getArguments().getString(Constants.DISTANCE_FROM_USER);
         iataCode = getArguments().getString(Constants.AIRPORT_IATACODE);
 
@@ -54,7 +57,7 @@ public class AirportFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DashboardView dashboardView = (DashboardView)getActivity();
-                dashboardView.goToDepartures(iataCode, name, "Airport Location");
+                dashboardView.goToDepartures(iataCode, name, "Airport "+location);
             }
         });
 

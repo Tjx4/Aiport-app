@@ -21,9 +21,8 @@ public class ConverterHelper {
     }
 
     public static String getSimpleTime(String time){
-        time = time.split(".")[0];
-        String[] hourMin = time.split(":");
-        String simpleTime = hourMin[0]+":"+hourMin[1];
+        String longTime = time.split("T")[1];
+        String simpleTime = longTime.split("\\.")[0];
         return simpleTime;
     }
 
