@@ -87,6 +87,7 @@
     <FrameLayout
         android:id="@+id/flStatusBar"
         android:layout_width="match_parent"
+        android:layout_gravity="top"
         android:layout_height="@dimen/def_statusbar_height"
         android:background="@color/colorPrimaryDark" />
 

@@ -17,8 +17,8 @@
 
             <ImageView
                 android:id="@+id/imgAirportIcon"
-                android:layout_width="@dimen/airport_icon_size"
-                android:layout_height="@dimen/airport_icon_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
