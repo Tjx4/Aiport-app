@@ -2,7 +2,7 @@ package co.za.dvt.airportapp.models;
 
 import java.util.List;
 
-public class AirportsModel {
+public class NearbyAirportsModel {
     private List<AirportModel> airports;
 
     public List<AirportModel> getAirports() {
