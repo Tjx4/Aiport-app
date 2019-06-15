@@ -5,13 +5,16 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
-import android.os.PersistableBundle;
+import android.os.SystemClock;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -29,6 +32,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -41,18 +45,13 @@ import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
 import co.za.dvt.airportapp.helpers.PermissionsHelper;
 
-public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
+public abstract class BaseMapActivity extends BaseparentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     protected SupportMapFragment mapFragment;
     protected GoogleMap googleMap;
     protected LocationRequest locationRequest;
     protected GoogleApiClient googleApiClient;
     protected List<Marker> airportMarkers;
     protected Marker userMarker;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     protected void checkLocationPermissionAndContinue() {
         if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
@@ -73,7 +72,7 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
 
             if(permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)){
                 if (grantResult == PackageManager.PERMISSION_GRANTED) {
-                    checkLocationPermissionAndContinue();
+                    checkGoogleApi();
                 }
                 else{
                     NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), getResources().getString(R.string.permission_denied_message), getResources().getString(R.string.ok));
@@ -107,6 +106,27 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
         moveLocationButtonToBottomRight();
     }
 
+    protected void moveLocationButtonToBottomRight() {
+        View mapView = mapFragment.getView();
+
+        if (mapView != null) {
+            View childView = mapView.findViewById(Integer.parseInt("1"));
+
+            if(childView != null){
+                View locationButton = ((View) childView.getParent()).findViewById(Integer.parseInt("2"));
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)locationButton.getLayoutParams();
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
+                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+
+                int bottomMargin =  (int) getResources().getDimension(R.dimen.xlarge_view_margin);
+                int rightMargin = (int) getResources().getDimension(R.dimen.large_view_margin);
+                layoutParams.setMargins(0, 0, rightMargin, bottomMargin);
+                locationButton.setLayoutParams(layoutParams);
+            }
+        }
+    }
+
     private void moveInToLocation(LatLng ll, int zoom) {
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ll, zoom);
         googleMap.moveCamera(cameraUpdate);
@@ -124,8 +144,8 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     protected void goToLocationZoomAnimated(LatLng ll, int zoom) {
         zoomInToLocation(ll, zoom, true);
     }
-    protected void buildGoogleApiClient(){
 
+    protected void buildGoogleApiClient(){
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -139,7 +159,7 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         locationRequest = new LocationRequest();
-        locationRequest.setInterval(1000);
+        locationRequest.setInterval(2000);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
@@ -175,39 +195,56 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
 
     protected abstract void onRequestListenerSuccess(Location location);
 
-    protected void moveLocationButtonToBottomRight() {
-        View mapView = mapFragment.getView();
-
-        if (mapView != null) {
-            View childView = mapView.findViewById(Integer.parseInt("1"));
-
-            if(childView != null){
-                View locationButton = ((View) childView.getParent()).findViewById(Integer.parseInt("2"));
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)locationButton.getLayoutParams();
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP,0);
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-
-                int bottomMargin =  (int) getResources().getDimension(R.dimen.xlarge_view_margin);
-                int rightMargin = (int) getResources().getDimension(R.dimen.large_view_margin);
-                layoutParams.setMargins(0, 0, rightMargin, bottomMargin);
-                locationButton.setLayoutParams(layoutParams);
-            }
-        }
-    }
-
     @Override
     public void onConnectionSuspended(int i) {
-//
+        NotificationHelper.showShortToast(this, getResources().getString(R.string.connection_suspended_message));
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-//
+        NotificationHelper.showShortToast(this, getResources().getString(R.string.api_user_error));
     }
 
     protected void moveUserMarker(LatLng latLng) {
-        userMarker.setPosition(latLng);
+        moveMarker(latLng, userMarker);
+    }
+
+    private void moveMarker(LatLng toLatLong, Marker currentMarker) {
+        animateMarkerMovement(currentMarker, toLatLong,false);
+    }
+
+    public void animateMarkerMovement(final Marker marker, final LatLng toPosition, final boolean hideMarker) {
+        final Handler handler = new Handler();
+        final long start = SystemClock.uptimeMillis();
+        Projection proj = googleMap.getProjection();
+        Point startPoint = proj.toScreenLocation(marker.getPosition());
+        final LatLng startLatLng = proj.fromScreenLocation(startPoint);
+        final long duration = 900;
+
+        final Interpolator interpolator = new LinearInterpolator();
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                long elapsed = SystemClock.uptimeMillis() - start;
+                float t = interpolator.getInterpolation((float) elapsed / duration);
+                double lng = t * toPosition.longitude + (1 - t) * startLatLng.longitude;
+                double lat = t * toPosition.latitude + (1 - t) * startLatLng.latitude;
+
+                marker.setPosition(new LatLng(lat, lng));
+
+                if (t < 1.0) {
+// Post again 16ms later.
+                    handler.postDelayed(this, 16);
+                } else {
+                    if (hideMarker) {
+                        marker.setVisible(false);
+                    } else {
+                        marker.setVisible(true);
+                    }
+                }
+            }
+        });
     }
 
     protected Marker getMarker(LatLng latLng, String title, String snippet, String tag) {
