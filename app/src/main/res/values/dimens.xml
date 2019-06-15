@@ -19,4 +19,5 @@
     <dimen name="medium_button_corner_radius">45dp</dimen>
     <dimen name="departure_button_size">87dp</dimen>
     <dimen name="departure_button_padding">8dp</dimen>
+    <dimen name="def_statusbar_height">25dp</dimen>
 </resources>

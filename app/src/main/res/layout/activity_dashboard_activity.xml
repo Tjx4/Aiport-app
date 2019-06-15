@@ -85,8 +85,9 @@
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/flStatusBar"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="@dimen/def_statusbar_height"
         android:background="@color/colorPrimaryDark" />
 
 </FrameLayout>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     private RelativeLayout searchContainerLl;
     private ViewPager airportsViewPager;
     private TextView resultsTv;
+    private View statusBar;
     private final int AIRPORT_ZOOM = 13;
     private final int USER_ZOOM = 14;
 
@@ -66,6 +68,11 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
     @Override
     protected void initViews() {
+        statusBar = findViewById(R.id.flStatusBar);
+        ViewGroup.LayoutParams params = statusBar.getLayoutParams();
+        params.height = getStatusBarHeight();
+        statusBar.setLayoutParams(params);
+
         airportsCarouselContainerFl = findViewById(R.id.flAirportsCarouselContainer);
         searchContainerLl = findViewById(R.id.llSearchContainer);
         airportsViewPager = findViewById(R.id.vpAirports);
