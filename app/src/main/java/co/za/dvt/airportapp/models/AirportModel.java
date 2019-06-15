@@ -1,47 +1,33 @@
 package co.za.dvt.airportapp.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class AirportModel {
     @SerializedName("nameAirport")
-    @Expose
     private String nameAirport;
     @SerializedName("codeIataAirport")
-    @Expose
     private String codeIataAirport;
     @SerializedName("codeIcaoAirport")
-    @Expose
     private String codeIcaoAirport;
     @SerializedName("nameTranslations")
-    @Expose
     private String nameTranslations;
     @SerializedName("latitudeAirport")
-    @Expose
     private String latitudeAirport;
     @SerializedName("longitudeAirport")
-    @Expose
     private String longitudeAirport;
     @SerializedName("timezone")
-    @Expose
     private String timezone;
     @SerializedName("GMT")
-    @Expose
     private String GMT;
     @SerializedName("phone")
-    @Expose
     private String phone;
     @SerializedName("nameCountry")
-    @Expose
     private String nameCountry;
     @SerializedName("codeIso2Country")
-    @Expose
     private String codeIso2Country;
     @SerializedName("vcodeIataCity")
-    @Expose
     private String vcodeIataCity;
     @SerializedName("distance")
-    @Expose
     private String distance;
 
     public String getNameAirport() {

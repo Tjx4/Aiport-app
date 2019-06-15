@@ -1,10 +1,8 @@
 package co.za.dvt.airportapp.features.dashboard;
 
 import com.google.android.gms.maps.model.LatLng;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -12,22 +10,23 @@ import java.util.List;
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.features.base.presenter.BaseMapPresenter;
+import co.za.dvt.airportapp.helpers.ConverterHelper;
 import co.za.dvt.airportapp.models.AirportModel;
-import co.za.dvt.airportapp.models.AirportsModel;
+import co.za.dvt.airportapp.models.NearbyAirportsModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DashboardPresenter extends BaseMapPresenter {
     private DashboardView dashboardView;
-    private AirportsModel airportsModel;
+    private NearbyAirportsModel nearbyAirportsModel;
 
     public DashboardPresenter(DashboardView dashboardView) {
         super(dashboardView);
         this.dashboardView = dashboardView;
     }
 
-    public void findAirports(final LatLng userCoordinates, int distance) {
+    public void findAirports(final LatLng userCoordinates, String distance) {
         if(isBusy)
             return;
 
@@ -36,18 +35,19 @@ public class DashboardPresenter extends BaseMapPresenter {
         HashMap<String, String> payload = new HashMap<>();
         payload.put(Constants.LAT, String.valueOf(userCoordinates.latitude));
         payload.put(Constants.LNG, String.valueOf(userCoordinates.longitude));
-        payload.put(Constants.DISTANCE, String.valueOf(distance));
+        payload.put(Constants.DISTANCE, distance);
 
-        Call<AirportsModel> call1 = retrofitHelper.getNearbyAirports(apiKey, payload);
-        call1.enqueue(new Callback<AirportsModel>() {
+        Call<List<AirportModel>> call1 = retrofitHelper.getNearbyAirports(apiKey, payload);
+        call1.enqueue(new Callback<List<AirportModel>>() {
             @Override
-            public void onResponse(Call<AirportsModel> call, Response<AirportsModel> response) {
+            public void onResponse(Call<List<AirportModel>> call, Response<List<AirportModel>> response) {
                 if(response.isSuccessful()){
-                    airportsModel = response.body();
+                    nearbyAirportsModel = new NearbyAirportsModel();
+                    nearbyAirportsModel.setAirports(response.body());
 
-                    if(airportsModel.getAirports().size() > 0){
-                        sortAirportsByDistance(airportsModel.getAirports(), userCoordinates);
-                        plotMarkersAndShowAirports(userCoordinates, airportsModel.getAirports());
+                    if(nearbyAirportsModel.getAirports().size() > 0){
+                        sortAirportsByDistance(nearbyAirportsModel.getAirports());
+                        plotMarkersAndShowAirports(userCoordinates, nearbyAirportsModel.getAirports());
                     }
                     else{
                         showAirportsError(context.getResources().getString(R.string.no_airports_message));
@@ -60,52 +60,11 @@ public class DashboardPresenter extends BaseMapPresenter {
             }
 
             @Override
-            public void onFailure(Call<AirportsModel> call, Throwable t) {
+            public void onFailure(Call<List<AirportModel>> call, Throwable t) {
                 showAirportsError(context.getResources().getString(R.string.error_finding_airports));
                 isBusy = false;
             }
         });
-    }
-
-    public void findMockAirports(LatLng userCoordinates, int distance) {
-        airportsModel = new AirportsModel();
-        List<AirportModel> airports = new ArrayList<>();
-        double dlat = userCoordinates.latitude + 0.1f;
-        double dlong = userCoordinates.longitude + 0.2f;
-        AirportModel airport = new AirportModel();
-        airport.setName("Basani airport");
-        airport.setIataCode("BAP");
-        airport.setLatitude(dlat);
-        airport.setLongitude(dlong);
-        airports.add(airport);
-        dlat = userCoordinates.latitude + 0.1f;
-        dlong = userCoordinates.longitude;
-        AirportModel airport2 = new AirportModel();
-        airport2.setName("Botitshepo airport");
-        airport2.setIataCode("BTA");
-        airport2.setLatitude(dlat);
-        airport2.setLongitude(dlong);
-        airports.add(airport2);
-        dlat = -25.753358;
-        dlong = 28.1274063;
-        AirportModel airport3 = new AirportModel();
-        airport3.setName("Musa airport");
-        airport3.setIataCode("MSA");
-        airport3.setLatitude(dlat);
-        airport3.setLongitude(dlong);
-        airports.add(airport3);
-        airportsModel.setAirports(airports);
-
-        if(airportsModel != null && airports.size() > 0){
-            sortAirportsByDistance(airportsModel.getAirports(), userCoordinates);
-            plotMarkersAndShowAirports(userCoordinates, airportsModel.getAirports());
-        }
-        else if(airportsModel != null && airports.size() < 1){
-            showAirportsError(context.getResources().getString(R.string.no_airports_message));
-        }
-        else {
-            showAirportsError(context.getResources().getString(R.string.error_finding_airports));
-        }
     }
 
     public void showAirportsError(String errorMessage){
@@ -125,7 +84,7 @@ public class DashboardPresenter extends BaseMapPresenter {
         String message = "1 airport found";
 
         if(total > 1){
-            message = airportNumber+" of "+total+" airportsModel found";
+            message = airportNumber+" of "+total+" airports found";
         }
 
         return message;
@@ -146,22 +105,20 @@ public class DashboardPresenter extends BaseMapPresenter {
         return  distanceMessage;
     }
 
-    protected List<AirportModel> sortAirportsByDistance(final List<AirportModel> stylists, final LatLng userPosition) {
-        Collections.sort(stylists, new Comparator<AirportModel>() {
+    protected List<AirportModel> sortAirportsByDistance(final List<AirportModel> airports) {
+
+        Collections.sort(airports, new Comparator<AirportModel>() {
             @Override
             public int compare(AirportModel airport1, AirportModel airport2) {
-                LatLng airport1Position = new LatLng(airport1.getLatitude(), airport1.getLongitude());
-                LatLng airport2Position = new LatLng(airport2.getLatitude(), airport2.getLongitude());
-
-                double st1Distance =  getDistanceInKm(userPosition, airport1Position);
-                double st2Distance =  getDistanceInKm(userPosition, airport2Position);
-                int ans = (int)Math.round(st1Distance - st2Distance);
+                double airport1Distance =  ConverterHelper.stringToDouble(airport1.getDistance());
+                double airport2Distance =  ConverterHelper.stringToDouble(airport2.getDistance());
+                int ans = (int)Math.round(airport1Distance - airport2Distance);
 
                 return ans;
             }
         });
 
-        List<AirportModel> sortedList = stylists;
-        return sortedList;
+        return airports;
     }
+
 }
