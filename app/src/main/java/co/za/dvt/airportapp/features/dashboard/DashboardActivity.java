@@ -52,13 +52,16 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void setupComponent(AppComponent appComponent) {
+        DaggerDashboardComponent.builder().appComponent(appComponent)
+                .dashboardModule(new DashboardModule(this))
+                .build()
+                .inject(this);
+    }
 
-        if(isNewActivity)
-            return;
-
-        overridePendingTransition(TransitionHelper.slideOutActivity()[0], TransitionHelper.slideOutActivity()[1]);
+    @Override
+    public DashboardPresenter getPresenter() {
+        return dashboardPresenter;
     }
 
     @Override
@@ -69,13 +72,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         resultsTv = findViewById(R.id.tvResults);
     }
 
-    @Override
-    public void setupComponent(AppComponent appComponent) {
-        DaggerDashboardComponent.builder().appComponent(appComponent)
-                .dashboardModule(new DashboardModule(this))
-                .build()
-                .inject(this);
-    }
     public void initMap() {
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFrag);
         mapFragment.getMapAsync(this);
@@ -84,6 +80,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Override
     public void onMapReady(GoogleMap googleMap) {
         super.onMapReady(googleMap);
+        showFindAirportsView();
     }
 
     @Override
@@ -102,11 +99,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     }
 
     @Override
-    public DashboardPresenter getPresenter() {
-        return dashboardPresenter;
-    }
-
-    @Override
     public void hideFindingAirportsDialog() {
         hideLoader();
     }
@@ -116,8 +108,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     }
 
     @Override
-    public void hideDialogAndshowAirportFindErrorMessage(String errorMessage) {
-        hideFindingAirportsDialog();
+    public void showAirportsErrorMessage(String errorMessage) {
         NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), errorMessage,  getResources().getString(R.string.ok));
     }
 
@@ -125,14 +116,25 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     public void onFindAirportsClicked(View view) {
         showFindingAirportsDialog(getResources().getString(R.string.finding_airports_message));
         LatLng userCoordinates = userMarker.getPosition();
-        int distance = 1; // Find some way to set distance
+int distance = 1; // Find some way to set distance
         getPresenter().findMockAirports(userCoordinates, distance);
     }
 
     @Override
-    public void onCloseAirpotListClicked(View view) {
+    public void onCloseAirportListClicked(View view) {
+        showFindAirportsView();
+    }
+
+    @Override
+    public void showFindAirportsView() {
         airportsCarouselContainerFl.setVisibility(View.GONE);
         searchContainerLl.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showAirportsFoundView() {
+        airportsCarouselContainerFl.setVisibility(View.VISIBLE);
+        searchContainerLl.setVisibility(View.GONE);
     }
 
     @Override
@@ -178,9 +180,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
     @Override
     public void showAirportsCarousel(final List<AirportModel> airports){
-        airportsCarouselContainerFl.setVisibility(View.VISIBLE);
-        searchContainerLl.setVisibility(View.GONE);
-
         List<AirportFragment> airportFragments = new ArrayList<>();
         for(AirportModel airport : airports){
             AirportFragment airportFragment = AirportFragment.getInstance(this, airport);
@@ -199,7 +198,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
             @Override
             public void onPageSelected(int position) {
                 goToLocationZoomAnimated(airportMarkers.get(position).getPosition(), AIRPORT_ZOOM);
-                String message = getPresenter().getResutsMessage(airports.size(), position);
+                String message = getPresenter().getAirportsFoundMessage(airports.size(), position);
                 showAirportsResultCount(message);
             }
 
@@ -209,16 +208,18 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
             }
         });
 
-        String message = getPresenter().getResutsMessage(airports.size(), 0);
+        String message = getPresenter().getAirportsFoundMessage(airports.size(), 0);
         showAirportsResultCount(message);
+        showAirportsFoundView();
     }
 
     @Override
     public void goToDepartures(String iataCode, String name, String location) {
         Bundle payload = new Bundle();
-        payload.putString(Constants.AIRPORT_IATACODE, iataCode);
-        payload.putString(Constants.AIRPORT_NAME, name);
-        payload.putString(Constants.AIRPORT_LOCATION, location);
+        //This may come in the next api call
+payload.putString(Constants.AIRPORT_IATACODE, iataCode);
+payload.putString(Constants.AIRPORT_NAME, name);
+payload.putString(Constants.AIRPORT_LOCATION, location);
         NavigationHelper.goToActivityWithPayload(this, FlightsActivity.class, payload, TransitionHelper.slideInActivity());
     }
 

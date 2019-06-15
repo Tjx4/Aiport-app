@@ -16,4 +16,5 @@
     <string name="departed">Departed</string>
     <string name="boarding">Boarding</string>
     <string name="no_flights_found">No flights were found</string>
+    <string name="connection_suspended_message">Your google Api connection was suspended</string>
 </resources>

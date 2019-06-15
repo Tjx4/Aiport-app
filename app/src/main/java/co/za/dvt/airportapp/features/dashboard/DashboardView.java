@@ -9,14 +9,16 @@ import co.za.dvt.airportapp.models.AirportModel;
 
 public interface DashboardView extends BaseView {
     DashboardPresenter getPresenter();
-    Marker getUserMarker();
-    void onFindAirportsClicked(View view);
-    void onCloseAirpotListClicked(View view);
-    void hideFindingAirportsDialog();
-    void showFindingAirportsDialog(String message);
-    void showAirportsResultCount(String message);
-    void hideDialogAndshowAirportFindErrorMessage(String errorMessage);
     void plotUserMarker(LatLng latLng, String title, String snippet);
+    void showFindAirportsView();
+    void onFindAirportsClicked(View view);
+    void onCloseAirportListClicked(View view);
+    void showAirportsFoundView();
+    void showFindingAirportsDialog(String message);
+    void hideFindingAirportsDialog();
+    void showAirportsResultCount(String message);
+    void showAirportsErrorMessage(String errorMessage);
+    Marker getUserMarker();
     void plotAirportMarker(LatLng latLng, String title, String snippet, String tag);
     void plotAirportMarkers(List<AirportModel> airports);
     void showAirportsCarousel(List<AirportModel> airport);

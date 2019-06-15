@@ -17,6 +17,7 @@
     <RelativeLayout
         android:id="@+id/llSearchContainer"
         style="@style/searchContainer"
+        android:visibility="gone"
         android:clickable="true">
         <TextView
             android:layout_toLeftOf="@+id/imgBtnFind"
@@ -71,7 +72,7 @@
                 android:background="@android:color/transparent"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_close_dark"
-                android:onClick="onCloseAirpotListClicked"/>
+                android:onClick="onCloseAirportListClicked"/>
 
         </RelativeLayout>
 
