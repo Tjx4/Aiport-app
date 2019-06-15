@@ -67,7 +67,7 @@
                             android:layout_width="12dp"
                             android:layout_height="12dp"
                             android:layout_gravity="center_vertical"
-                            android:src="@drawable/red_dot_x1"/>
+                            android:src="@drawable/red_dot_x2"/>
 
                         <TextView
                             android:id="@+id/tvDepartureDestination"
