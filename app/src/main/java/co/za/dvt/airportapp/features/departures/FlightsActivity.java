@@ -17,8 +17,7 @@ import co.za.dvt.airportapp.di.components.DaggerFlightsComponent;
 import co.za.dvt.airportapp.di.modules.FlightsModule;
 import co.za.dvt.airportapp.features.base.activity.BaseChildActivity;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
-import co.za.dvt.airportapp.models.DepartureModel;
-import co.za.dvt.airportapp.models.TimetableModel;
+import co.za.dvt.airportapp.models.DepartureFlightsModel;
 
 public class FlightsActivity extends BaseChildActivity implements FlightsView , FlightsAdapter.ItemClickListener {
 
@@ -37,8 +36,10 @@ public class FlightsActivity extends BaseChildActivity implements FlightsView , 
 
         showFindingFlightsDialog(getResources().getString(R.string.finding_flights_message));
         String iataCode = getIntent().getBundleExtra(Constants.PAYLOAD_KEY).get(Constants.AIRPORT_IATACODE).toString();
+        String airPortName  = getIntent().getBundleExtra(Constants.PAYLOAD_KEY).get(Constants.AIRPORT_NAME).toString();
+        String airPortLocation = getIntent().getBundleExtra(Constants.PAYLOAD_KEY).get(Constants.AIRPORT_LOCATION).toString();
         String flightType = "departure";
-        getPresenter().getFlights(iataCode, flightType);
+        getPresenter().getFlights(iataCode, flightType, airPortName, airPortLocation);
     }
 
     @Override
@@ -86,7 +87,7 @@ public class FlightsActivity extends BaseChildActivity implements FlightsView , 
     }
 
     @Override
-    public void showFlights(List<TimetableModel> flights, String airportName, String airportLocation) {
+    public void showFlights(List<DepartureFlightsModel> flights, String airportName, String airportLocation) {
         collapsingToolbarLayout.setTitle(airportName);
         airportLocationTv.setText(airportLocation);
         FlightsAdapter flightsAdapter = new FlightsAdapter(this, flights);
@@ -95,7 +96,7 @@ public class FlightsActivity extends BaseChildActivity implements FlightsView , 
     }
 
     @Override
-    public void onItemClick(View view, DepartureModel flight) {
+    public void onItemClick(View view, DepartureFlightsModel flight) {
 
     }
 

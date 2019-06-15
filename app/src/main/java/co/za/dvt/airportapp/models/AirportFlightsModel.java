@@ -5,13 +5,13 @@ import java.util.List;
 public class AirportFlightsModel {
     private String nameAirport;
     private String nameCountry;
-    List<TimetableModel> flights;
+    List<DepartureFlightsModel> flights;
 
-    public List<TimetableModel> getFlights() {
+    public List<DepartureFlightsModel> getFlights() {
         return flights;
     }
 
-    public void setFlights(List<TimetableModel> flights) {
+    public void setFlights(List<DepartureFlightsModel> flights) {
         this.flights = flights;
     }
 

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.models.AirportModel;
-import co.za.dvt.airportapp.models.TimetableModel;
+import co.za.dvt.airportapp.models.DepartureFlightsModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -15,5 +15,5 @@ public interface RetrofitHelper {
     Call<List<AirportModel>> getNearbyAirports(@Query("key") String apiKey, @QueryMap Map<String, String> params);
 
     @GET(Constants.TIMETABLE)
-    Call<List<TimetableModel>> getFlights(@Query("key") String apiKey, @QueryMap Map<String, String> params);
+    Call<List<DepartureFlightsModel>> getFlights(@Query("key") String apiKey, @QueryMap Map<String, String> params);
 }

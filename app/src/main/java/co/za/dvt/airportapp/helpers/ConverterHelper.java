@@ -20,6 +20,13 @@ public class ConverterHelper {
         return px;
     }
 
+    public static String getSimpleTime(String time){
+        time = time.split(".")[0];
+        String[] hourMin = time.split(":");
+        String simpleTime = hourMin[0]+":"+hourMin[1];
+        return simpleTime;
+    }
+
     public static float pxToSp(float px, Context context){
         float sp = px / context.getResources().getDisplayMetrics().scaledDensity;
         return  px;

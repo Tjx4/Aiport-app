@@ -9,16 +9,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import co.za.dvt.airportapp.R;
-import co.za.dvt.airportapp.models.DepartureModel;
-import co.za.dvt.airportapp.models.TimetableModel;
+import co.za.dvt.airportapp.helpers.ConverterHelper;
+import co.za.dvt.airportapp.models.DepartureFlightsModel;
 
 public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHolder> {
 
-    protected List<TimetableModel> flights;
+    protected List<DepartureFlightsModel> flights;
     protected LayoutInflater mInflater;
     protected FlightsAdapter.ItemClickListener mClickListener;
 
-    public FlightsAdapter(Context context, List<TimetableModel> flights) {
+    public FlightsAdapter(Context context, List<DepartureFlightsModel> flights) {
         this.mInflater = LayoutInflater.from(context);
         this.flights = flights;
     }
@@ -31,11 +31,11 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(FlightsAdapter.ViewHolder holder, int position) {
-        String airlineName = flights.get(position).getAirlineName();
-        String departureTime = flights.get(position).getDepartureTime();
-        String destination = flights.get(position).getDestination();
-        String flightNumber = flights.get(position).getFlightNumber();
-        boolean isDeparted = flights.get(position).isDeperted();
+        String airlineName = flights.get(position).getAirline().getName();
+        String departureTime = ConverterHelper.getSimpleTime(flights.get(position).getDeparture().getScheduledTime());
+        String flightNumber = flights.get(position).getFlight().getIataNumber();
+        String destination = flights.get(position).getArrival().getIataCode(); // Make call for destination
+        boolean isDeparted = flights.get(position).getStatus().equals("active");
 
         holder.airlineNameTv.setText(airlineName);
         holder.departureTimeTv.setText(departureTime);
@@ -74,7 +74,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
 
         @Override
         public void onClick(View view) {
-            DepartureModel flight = flights.get(getAdapterPosition());
+            DepartureFlightsModel flight = flights.get(getAdapterPosition());
             mClickListener.onItemClick(view, flight);
         }
     }
@@ -84,7 +84,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         return flights.size();
     }
 
-    DepartureModel getItem(int index) {
+    DepartureFlightsModel getItem(int index) {
         return flights.get(index);
     }
 
@@ -93,7 +93,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, DepartureModel flight);
+        void onItemClick(View view, DepartureFlightsModel flight);
     }
 
 }

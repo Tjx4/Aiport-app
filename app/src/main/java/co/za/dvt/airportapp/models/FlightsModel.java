@@ -2,7 +2,7 @@ package co.za.dvt.airportapp.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class flightModel {
+public class FlightsModel {
     @SerializedName("number")
     private String number;
     @SerializedName("iataNumber")
