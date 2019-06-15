@@ -14,7 +14,7 @@ public class Constants {
     public static final String DISTANCE_FROM_USER = "distance_from_user";
     //API
     public static final String CURRENTENVIRONMENT = Hosts.liveHost.getUrl();
-    public static final String GET_AIRPORTS = "pi/public/nearby/";
+    public static final String NEARBY_AIRPORTS = "v2/public/nearby";
     public static final String LAT = "lat";
     public static final String LNG = "lng";
     public static final String DISTANCE = "distance";
