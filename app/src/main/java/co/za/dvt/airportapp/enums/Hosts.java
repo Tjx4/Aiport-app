@@ -1,7 +1,7 @@
 package co.za.dvt.airportapp.enums;
 
 public enum Hosts {
-    liveHost("http://aviation-edge.com/api/", "");
+    liveHost("http://aviation-edge.com/", "");
 
     private String url;
     private String ip;
