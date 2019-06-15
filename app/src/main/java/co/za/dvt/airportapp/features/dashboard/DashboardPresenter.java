@@ -11,7 +11,7 @@ import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.features.base.presenter.BaseMapPresenter;
 import co.za.dvt.airportapp.models.AirportModel;
-import co.za.dvt.airportapp.models.NearbyAirpoprtsModel;
+import co.za.dvt.airportapp.models.AirportsModel;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,17 +36,17 @@ public class DashboardPresenter extends BaseMapPresenter {
         payload.put(Constants.LNG, String.valueOf(userCoordinates.longitude));
         payload.put(Constants.DISTANCE, String.valueOf(distance));
 
-        Call<NearbyAirpoprtsModel> call1 = retrofitHelper.getNearbyAirports(apiKey, payload);
-        call1.enqueue(new Callback<NearbyAirpoprtsModel>() {
+        Call<AirportsModel> call1 = retrofitHelper.getNearbyAirports(apiKey, payload);
+        call1.enqueue(new Callback<AirportsModel>() {
             @Override
-            public void onResponse(Call<NearbyAirpoprtsModel> call, Response<NearbyAirpoprtsModel> response) {
+            public void onResponse(Call<AirportsModel> call, Response<AirportsModel> response) {
                 if(response.isSuccessful()){
-                    NearbyAirpoprtsModel nearbyAirpoprtsModel = response.body();
+                    AirportsModel airportsModel = response.body();
 
-                    if(nearbyAirpoprtsModel.getAirports().size() > 0){
-                        sortAirportsByDistance(nearbyAirpoprtsModel.getAirports(), userCoordinates);
+                    if(airportsModel.getAirports().size() > 0){
+                        sortAirportsByDistance(airportsModel.getAirports(), userCoordinates);
                         plotMarkersAndShowAirports(userCoordinates);
-                        airports = nearbyAirpoprtsModel.getAirports();
+                        airports = airportsModel.getAirports();
                     }
                     else{
                         dashboardView.hideDialogAndshowAirportFindErrorMessage(context.getResources().getString(R.string.no_airports_message));
@@ -59,7 +59,7 @@ public class DashboardPresenter extends BaseMapPresenter {
             }
 
             @Override
-            public void onFailure(Call<NearbyAirpoprtsModel> call, Throwable t) {
+            public void onFailure(Call<AirportsModel> call, Throwable t) {
                 dashboardView.hideDialogAndshowAirportFindErrorMessage(context.getResources().getString(R.string.error_finding_airports));
                 isBusy = false;
             }

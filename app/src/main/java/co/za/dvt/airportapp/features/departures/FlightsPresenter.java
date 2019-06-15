@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.features.base.presenter.BaseAsyncPresenter;
-import co.za.dvt.airportapp.models.AirportflightsModel;
+import co.za.dvt.airportapp.models.FlightsModel;
 import co.za.dvt.airportapp.models.FlightModel;
 
 public class FlightsPresenter extends BaseAsyncPresenter {
@@ -17,10 +17,10 @@ public class FlightsPresenter extends BaseAsyncPresenter {
 
     public void getMockFlights(String iataCode, final String airportName, final String airportLocation) {
 
-        AirportflightsModel airportflightsModel = new AirportflightsModel();
-        airportflightsModel.setFlights(new ArrayList<FlightModel>());
+        FlightsModel flightsModel = new FlightsModel();
+        flightsModel.setFlights(new ArrayList<FlightModel>());
 
-        List<FlightModel> flights = airportflightsModel.getFlights();
+        List<FlightModel> flights = flightsModel.getFlights();
 
         FlightModel flight1 = new FlightModel();
         flight1.setAirlineName("South African Airways");

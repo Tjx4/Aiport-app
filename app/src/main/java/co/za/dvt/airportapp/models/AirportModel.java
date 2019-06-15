@@ -2,6 +2,7 @@ package co.za.dvt.airportapp.models;
 
 public class AirportModel {
     private String name;
+    private String location;
     private String iataCode;
     private double latitude;
     private double longitude;
@@ -36,5 +37,13 @@ public class AirportModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
