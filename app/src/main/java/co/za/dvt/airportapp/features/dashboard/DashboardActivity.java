@@ -28,6 +28,7 @@ import co.za.dvt.airportapp.di.modules.DashboardModule;
 import co.za.dvt.airportapp.features.base.activity.BaseMapActivity;
 import co.za.dvt.airportapp.features.departures.FlightsActivity;
 import co.za.dvt.airportapp.fragments.AirportFragment;
+import co.za.dvt.airportapp.helpers.ConverterHelper;
 import co.za.dvt.airportapp.helpers.NavigationHelper;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
 import co.za.dvt.airportapp.helpers.TransitionHelper;
@@ -123,8 +124,8 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     public void onFindAirportsClicked(View view) {
         showFindingAirportsDialog(getResources().getString(R.string.finding_airports_message));
         LatLng userCoordinates = userMarker.getPosition();
-int distance = 1; // Find some way to set distance
-        getPresenter().findMockAirports(userCoordinates, distance);
+        String distance = "100"; // Find some way to set distance
+        getPresenter().findAirports(userCoordinates, distance);
     }
 
     @Override
@@ -170,9 +171,9 @@ int distance = 1; // Find some way to set distance
         googleMap.clear();
 
         for(AirportModel airport : airports){
-            String iataCode = airport.getIataCode();
-            LatLng airportCoordinates = new LatLng(airport.getLatitude(), airport.getLongitude());
-            String airportName =  airport.getName();
+            String iataCode = airport.getCodeIataAirport();
+            LatLng airportCoordinates = new LatLng(ConverterHelper.stringToDouble(airport.getLatitudeAirport()), ConverterHelper.stringToDouble(airport.getLongitudeAirport()));
+            String airportName =  airport.getNameAirport();
             plotAirportMarker(airportCoordinates, airportName, null, iataCode);
         }
 
