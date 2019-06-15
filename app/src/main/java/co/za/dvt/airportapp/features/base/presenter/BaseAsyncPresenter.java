@@ -23,5 +23,6 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
         Retrofit retrofit = builder.build();
 
         retrofitHelper = retrofit.create(RetrofitHelper.class);
+        apiKey = "db1b95-b95d19";
     }
 }
