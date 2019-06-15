@@ -27,6 +27,7 @@
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginBottom="60dp"
             app:expandedTitleTextAppearance="@style/CollapsedAppBarLarge"
+            app:title=""
             android:fitsSystemWindows="true">
 
             <ImageView
