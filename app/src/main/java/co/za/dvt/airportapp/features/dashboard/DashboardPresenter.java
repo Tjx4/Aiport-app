@@ -45,7 +45,7 @@ public class DashboardPresenter extends BaseMapPresenter {
 
                     if(nearbyAirpoprtsModel.getAirports().size() > 0){
                         sortAirportsByDistance(nearbyAirpoprtsModel.getAirports(), userCoordinates);
-                        plotMarkersAndShowAirports();
+                        plotMarkersAndShowAirports(userCoordinates);
                         airports = nearbyAirpoprtsModel.getAirports();
                     }
                     else{
@@ -99,7 +99,7 @@ airports.add(airport3);
 
         if(airports != null && airports.size() > 0){
             sortAirportsByDistance(airports, userCoordinates);
-            plotMarkersAndShowAirports();
+            plotMarkersAndShowAirports(userCoordinates);
         }
         else if(airports != null && airports.size() < 1){
             dashboardView.hideDialogAndshowAirportFindErrorMessage(context.getResources().getString(R.string.no_airports_message));
@@ -109,10 +109,12 @@ airports.add(airport3);
         }
     }
 
-    public void plotMarkersAndShowAirports(){
+    public void plotMarkersAndShowAirports(LatLng userCoordinates){
         dashboardView.hideFindingAirportsDialog();
         dashboardView.plotAirportMarkers(airports);
         dashboardView.showAirportsCarousel(airports);
+        dashboardView.plotUserMarker(userCoordinates, context.getResources().getString(R.string.you), context.getResources().getString(R.string.user_location_message));
+
     }
 
     public String getResutsMessage(int total, int currentPosition){

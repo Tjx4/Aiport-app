@@ -26,7 +26,7 @@ import co.za.dvt.airportapp.di.components.AppComponent;
 import co.za.dvt.airportapp.di.components.DaggerDashboardComponent;
 import co.za.dvt.airportapp.di.modules.DashboardModule;
 import co.za.dvt.airportapp.features.base.activity.BaseMapActivity;
-import co.za.dvt.airportapp.features.departures.DeparturesActivity;
+import co.za.dvt.airportapp.features.departures.FlightsActivity;
 import co.za.dvt.airportapp.fragments.AirportFragment;
 import co.za.dvt.airportapp.helpers.NavigationHelper;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
@@ -218,7 +218,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     public void goToDepartures(String iataCode) {
         Bundle payload = new Bundle();
         payload.putString(Constants.AIRPORT_IATACODE, iataCode);
-        NavigationHelper.goToActivityWithPayload(this, DeparturesActivity.class, payload, TransitionHelper.slideInActivity());
+        NavigationHelper.goToActivityWithPayload(this, FlightsActivity.class, payload, TransitionHelper.slideInActivity());
     }
 
     protected void listenForMarkerClicks() {

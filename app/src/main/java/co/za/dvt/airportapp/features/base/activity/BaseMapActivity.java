@@ -52,7 +52,6 @@ public abstract class BaseMapActivity extends BaseAsyncActivity implements OnMap
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     protected void checkLocationPermissionAndContinue() {

@@ -5,7 +5,7 @@
     android:animateLayoutChanges="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.departures.DeparturesActivity"
+    tools:context=".features.departures.FlightsActivity"
     android:background="@color/departuresBackground"
     android:fitsSystemWindows="true">
 
@@ -27,7 +27,6 @@
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginBottom="60dp"
             app:expandedTitleTextAppearance="@style/CollapsedAppBarLarge"
-            app:title="O.R.Tambo Internationl"
             android:fitsSystemWindows="true">
 
             <ImageView
@@ -42,13 +41,13 @@
                 app:layout_collapseMode="parallax" />
 
             <TextView
+                android:id="@+id/tvAirportLocation"
                 style="@style/mediumLightTextView"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginBottom="30dp"
                 app:layout_collapseMode="parallax"
-                android:layout_gravity="bottom"
-                android:text="Airport Kempton Park"/>
+                android:layout_gravity="bottom"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -67,6 +66,7 @@
         android:id="@+id/rvDepartures"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="#eee"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

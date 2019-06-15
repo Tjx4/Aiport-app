@@ -60,6 +60,9 @@
     <style name="largeDarkTextView" parent="largeTextView">
         <item name="android:textColor">@color/darkestText</item>
     </style>
+    <style name="airLineTextView" parent="largeDarkTextView">
+        <item name="android:textColor">@color/airLine_text_color</item>
+    </style>
     <style name="mediumTextView" parent="airportAppTextView">
         <item name="android:textSize">@dimen/medium_text_size</item>
     </style>
@@ -69,6 +72,14 @@
     <style name="mediumDarkEditText" parent="mediumTextView">
         <item name="android:textColor">@color/darkerText</item>
     </style>
+    <style name="smallTextView" parent="airportAppTextView">
+        <item name="android:textSize">@dimen/small_text_size</item>
+    </style>
+    <style name="smallDarkTextView" parent="smallTextView">
+        <item name="android:textColor">@color/darkText</item>
+    </style>
+
+
     <style name="searchContainer">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -90,6 +101,14 @@
     <style name="CollapsedAppBarLarge" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">@dimen/large_text_size</item>
         <item name="android:textColor">@color/lightestText</item>
+    </style>
+
+
+    <style name="flightInfContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
     </style>
 
 </resources>

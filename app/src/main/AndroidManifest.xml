@@ -30,7 +30,7 @@
             android:theme="@style/TransStatusBarTheme" />
 
         <activity
-            android:name=".features.departures.DeparturesActivity"
+            android:name=".features.departures.FlightsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/TransStatusBarTheme">
             <meta-data

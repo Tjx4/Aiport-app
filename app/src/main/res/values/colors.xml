@@ -16,4 +16,5 @@
     <color name="darkBackground">#222</color>
     <color name="lightBackground">#FFF</color>
     <color name="departuresBackground">#EEE</color>
+    <color name="airLine_text_color">#003366</color>
 </resources>

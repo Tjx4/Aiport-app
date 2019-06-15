@@ -13,4 +13,7 @@
     <string name="find_nearby_airports_message">Welcome, please click the button to find airports nearby</string>
     <string name="no_airports_message">No airports found in your area airports</string>
     <string name="error_finding_airports">Error finding airports</string>
+    <string name="departed">Departed</string>
+    <string name="boarding">Boarding</string>
+    <string name="no_flights_found">No flights were found</string>
 </resources>
