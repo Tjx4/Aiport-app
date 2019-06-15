@@ -2,7 +2,6 @@ package co.za.dvt.airportapp.features.departures;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.features.base.presenter.BaseAsyncPresenter;
 import co.za.dvt.airportapp.models.AirportflightsModel;
@@ -24,7 +23,7 @@ public class FlightsPresenter extends BaseAsyncPresenter {
         List<FlightModel> flights = airportflightsModel.getFlights();
 
         FlightModel flight1 = new FlightModel();
-        flight1.setAirlineName("SAA");
+        flight1.setAirlineName("South African Airways");
         flight1.setDepartureTime("08:30");
         flight1.setDestination("DRC");
         flight1.setFlightNumber("SAA015");
@@ -32,7 +31,7 @@ public class FlightsPresenter extends BaseAsyncPresenter {
         flights.add(flight1);
 
         FlightModel flight2 = new FlightModel();
-        flight2.setAirlineName("British");
+        flight2.setAirlineName("British Airways");
         flight2.setDepartureTime("12:00");
         flight2.setDestination("London");
         flight2.setFlightNumber("B52106");
