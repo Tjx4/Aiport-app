@@ -9,15 +9,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import co.za.dvt.airportapp.R;
-import co.za.dvt.airportapp.models.FlightModel;
+import co.za.dvt.airportapp.models.DepartureModel;
+import co.za.dvt.airportapp.models.TimetableModel;
 
 public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHolder> {
 
-    protected List<FlightModel> flights;
+    protected List<TimetableModel> flights;
     protected LayoutInflater mInflater;
     protected FlightsAdapter.ItemClickListener mClickListener;
 
-    public FlightsAdapter(Context context, List<FlightModel> flights) {
+    public FlightsAdapter(Context context, List<TimetableModel> flights) {
         this.mInflater = LayoutInflater.from(context);
         this.flights = flights;
     }
@@ -73,7 +74,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
 
         @Override
         public void onClick(View view) {
-            FlightModel flight = flights.get(getAdapterPosition());
+            DepartureModel flight = flights.get(getAdapterPosition());
             mClickListener.onItemClick(view, flight);
         }
     }
@@ -83,7 +84,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
         return flights.size();
     }
 
-    FlightModel getItem(int index) {
+    DepartureModel getItem(int index) {
         return flights.get(index);
     }
 
@@ -92,7 +93,7 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, FlightModel flight);
+        void onItemClick(View view, DepartureModel flight);
     }
 
 }

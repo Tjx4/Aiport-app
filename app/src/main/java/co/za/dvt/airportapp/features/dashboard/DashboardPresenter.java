@@ -67,16 +67,16 @@ public class DashboardPresenter extends BaseMapPresenter {
         });
     }
 
-    public void showAirportsError(String errorMessage){
-        dashboardView.hideFindingAirportsDialog();
-        dashboardView.showAirportsErrorMessage(errorMessage);
-    }
-
     public void plotMarkersAndShowAirports(LatLng userCoordinates, List<AirportModel> airports){
         dashboardView.hideFindingAirportsDialog();
         dashboardView.plotAirportMarkers(airports);
         dashboardView.plotUserMarker(userCoordinates, context.getResources().getString(R.string.you), context.getResources().getString(R.string.user_location_message));
         dashboardView.showAirportsCarousel(airports);
+    }
+
+    public void showAirportsError(String errorMessage){
+        dashboardView.hideFindingAirportsDialog();
+        dashboardView.showAirportsErrorMessage(errorMessage);
     }
 
     public String getAirportsFoundMessage(int total, int currentPosition){

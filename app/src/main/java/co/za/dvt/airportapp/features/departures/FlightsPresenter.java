@@ -1,69 +1,71 @@
 package co.za.dvt.airportapp.features.departures;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import co.za.dvt.airportapp.R;
+import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.features.base.presenter.BaseAsyncPresenter;
-import co.za.dvt.airportapp.models.FlightsModel;
-import co.za.dvt.airportapp.models.FlightModel;
+import co.za.dvt.airportapp.models.AirportFlightsModel;
+import co.za.dvt.airportapp.models.TimetableModel;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FlightsPresenter extends BaseAsyncPresenter {
     private FlightsView flightsView;
+    private AirportFlightsModel airportFlights;
 
     public FlightsPresenter(FlightsView flightsView) {
         super(flightsView);
         this.flightsView = flightsView;
     }
 
-    public void getMockFlights(String iataCode, final String airportName, final String airportLocation) {
+    public void getFlights(String iataCode, String type){
+        if(isBusy)
+            return;
 
-        FlightsModel flightsModel = new FlightsModel();
-        flightsModel.setFlights(new ArrayList<FlightModel>());
+        isBusy = true;
 
-        List<FlightModel> flights = flightsModel.getFlights();
+        HashMap<String, String> payload = new HashMap<>();
+        payload.put(Constants.IATACODE, iataCode);
+        payload.put(Constants.TYPE, type);
 
-        FlightModel flight1 = new FlightModel();
-        flight1.setAirlineName("South African Airways");
-        flight1.setDepartureTime("08:30");
-        flight1.setDestination("DRC");
-        flight1.setFlightNumber("SAA015");
-        flight1.setDeperted(false);
-        flights.add(flight1);
+        Call<List<TimetableModel>> call1 = retrofitHelper.getFlights(apiKey, payload);
+        call1.enqueue(new Callback<List<TimetableModel>>() {
+            @Override
+            public void onResponse(Call<List<TimetableModel>> call, Response<List<TimetableModel>> response) {
+                if(response.isSuccessful()){
+                    airportFlights = new AirportFlightsModel();
+                    airportFlights.setFlights(response.body());
 
-        FlightModel flight2 = new FlightModel();
-        flight2.setAirlineName("British Airways");
-        flight2.setDepartureTime("12:00");
-        flight2.setDestination("London");
-        flight2.setFlightNumber("B52106");
-        flight2.setDeperted(true);
-        flights.add(flight2);
+                    if(airportFlights.getFlights().size() > 0){
+                        showAirportFlights(airportFlights.getFlights(), airportFlights.getNameAirport(),  airportFlights.getNameCountry());
+                    }
+                    else{
+                        showFlightsError(context.getResources().getString(R.string.no_flights_message));
+                    }
+                }
+                else{
+                    showFlightsError(context.getResources().getString(R.string.error_finding_flights));
+                }
+                isBusy = false;
+            }
 
-        FlightModel flight3 = new FlightModel();
-        flight3.setAirlineName("Virgin");
-        flight3.setDepartureTime("03:30");
-        flight3.setDestination("New york");
-        flight3.setFlightNumber("V000247");
-        flight3.setDeperted(false);
-        flights.add(flight3);
-
-        FlightModel flight4 = new FlightModel();
-        flight4.setAirlineName("Mango");
-        flight4.setDepartureTime("01:00");
-        flight4.setDestination("Cape town");
-        flight4.setFlightNumber("M980807");
-        flight4.setDeperted(false);
-        flights.add(flight4);
-
-        if(flights.size() > 0){
-            flightsView.showFlights(flights, airportName, airportLocation);
-        }
-        else {
-            flightsView.showFlightRetrieveError(context.getResources().getString(R.string.no_flights_found));
-        }
+            @Override
+            public void onFailure(Call<List<TimetableModel>> call, Throwable t) {
+                showFlightsError(context.getResources().getString(R.string.error_finding_flights));
+                isBusy = false;
+            }
+        });
     }
 
-    public void getFlights(String iataCode, final String setAirportName, final String setAirportLocation){
-        //flightsView.showFlights(flights, airportName, airportLocation);
+    private void showAirportFlights(List<TimetableModel> flights, String airportName, String airportLocation){
+        flightsView.hideFindingFlightsDialog();
+        flightsView.showFlights(flights, airportName, airportLocation);
     }
 
+    private void showFlightsError(String errorMessage){
+        flightsView.hideFindingFlightsDialog();
+        flightsView.showFlightRetrieveError(errorMessage);
+    }
 }

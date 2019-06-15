@@ -12,9 +12,12 @@
     <string name="finding_airports_message">Finding airports...</string>
     <string name="find_nearby_airports_message">Welcome, please click the button to find airports nearby</string>
     <string name="no_airports_message">No airports found in your area airports</string>
+    <string name="no_flights_message">No flights found for this airport</string>
     <string name="error_finding_airports">Error finding airports</string>
+    <string name="error_finding_flights">Error finding flights</string>
     <string name="departed">Departed</string>
     <string name="boarding">Boarding</string>
     <string name="no_flights_found">No flights were found</string>
     <string name="connection_suspended_message">Your google Api connection was suspended</string>
+    <string name="finding_flights_message">Finding flights</string>
 </resources>

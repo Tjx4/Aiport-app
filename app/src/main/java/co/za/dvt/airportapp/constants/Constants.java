@@ -15,7 +15,10 @@ public class Constants {
     //API
     public static final String CURRENTENVIRONMENT = Hosts.liveHost.getUrl();
     public static final String NEARBY_AIRPORTS = "v2/public/nearby";
+    public static final String TIMETABLE = "v2/public/timetable";
     public static final String LAT = "lat";
     public static final String LNG = "lng";
     public static final String DISTANCE = "distance";
+    public static final String IATACODE = "iataCode";
+    public static final String TYPE = "type";
 }
