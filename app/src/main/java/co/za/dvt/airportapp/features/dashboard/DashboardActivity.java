@@ -215,9 +215,11 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     }
 
     @Override
-    public void goToDepartures(String iataCode) {
+    public void goToDepartures(String iataCode, String name, String location) {
         Bundle payload = new Bundle();
         payload.putString(Constants.AIRPORT_IATACODE, iataCode);
+        payload.putString(Constants.AIRPORT_NAME, name);
+        payload.putString(Constants.AIRPORT_LOCATION, location);
         NavigationHelper.goToActivityWithPayload(this, FlightsActivity.class, payload, TransitionHelper.slideInActivity());
     }
 

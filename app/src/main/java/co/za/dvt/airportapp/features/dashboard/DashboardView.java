@@ -20,5 +20,5 @@ public interface DashboardView extends BaseView {
     void plotAirportMarker(LatLng latLng, String title, String snippet, String tag);
     void plotAirportMarkers(List<AirportModel> airports);
     void showAirportsCarousel(List<AirportModel> airport);
-    void goToDepartures(String iataCode);
+    void goToDepartures(String iataCode, String name, String location);
 }

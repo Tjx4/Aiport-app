@@ -23,7 +23,6 @@ public class FlightsActivity extends BaseChildActivity implements FlightsView , 
 
     @Inject
     FlightsPresenter flightsPresenter;
-
     private TextView airportLocationTv;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private Toolbar toolbar;
@@ -36,7 +35,9 @@ public class FlightsActivity extends BaseChildActivity implements FlightsView , 
         initViews();
 
         String iataCode = getIntent().getBundleExtra(Constants.PAYLOAD_KEY).get(Constants.AIRPORT_IATACODE).toString();
-        getPresenter().getMockFlights(iataCode);
+        String airPortName = getIntent().getBundleExtra(Constants.PAYLOAD_KEY).get(Constants.AIRPORT_NAME).toString();
+        String airPortLocation = getIntent().getBundleExtra(Constants.PAYLOAD_KEY).get(Constants.AIRPORT_LOCATION).toString();
+        getPresenter().getMockFlights(iataCode, airPortName, airPortLocation);
     }
 
     @Override

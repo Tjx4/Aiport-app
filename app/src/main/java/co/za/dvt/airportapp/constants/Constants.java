@@ -9,6 +9,7 @@ public class Constants {
     public static final String LAYOUT = "layout";
     public static final String TITLE = "title";
     public static final String AIRPORT_NAME = "airport_name";
+    public static final String AIRPORT_LOCATION = "airport_location";
     public static final String AIRPORT_IATACODE = "airport_aitacode";
     public static final String DISTANCE_FROM_USER = "distance_from_user";
     //API

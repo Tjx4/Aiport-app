@@ -53,7 +53,7 @@ public class AirportFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 DashboardView dashboardView = (DashboardView)getActivity();
-                dashboardView.goToDepartures(iataCode);
+                dashboardView.goToDepartures(iataCode, name, "Airport Location");
             }
         });
 

@@ -16,12 +16,12 @@ public class FlightsPresenter extends BaseAsyncPresenter {
         this.flightsView = flightsView;
     }
 
-    public void getMockFlights(String iataCode) {
+    public void getMockFlights(String iataCode, final String airportName, final String airportLocation) {
 
         AirportflightsModel airportflightsModel = new AirportflightsModel();
         airportflightsModel.setFlights(new ArrayList<FlightModel>());
-        List<FlightModel> flights = airportflightsModel.getFlights();
 
+        List<FlightModel> flights = airportflightsModel.getFlights();
 
         FlightModel flight1 = new FlightModel();
         flight1.setAirlineName("SAA");
@@ -55,20 +55,15 @@ public class FlightsPresenter extends BaseAsyncPresenter {
         flight4.setDeperted(false);
         flights.add(flight4);
 
-
-        String airportName = airportflightsModel.getAirportName();
-        String airportLocation = airportflightsModel.getAirportLocation();
-
         if(flights.size() > 0){
             flightsView.showFlights(flights, airportName, airportLocation);
         }
         else {
-
             flightsView.showFlightRetrieveError(context.getResources().getString(R.string.no_flights_found));
         }
     }
 
-    public void getFlights(String iataCode){
+    public void getFlights(String iataCode, final String setAirportName, final String setAirportLocation){
         //flightsView.showFlights(flights, airportName, airportLocation);
     }
 
