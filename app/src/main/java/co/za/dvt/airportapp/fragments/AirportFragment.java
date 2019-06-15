@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.features.dashboard.DashboardView;
+import co.za.dvt.airportapp.helpers.ConverterHelper;
 import co.za.dvt.airportapp.models.AirportModel;
 
 public class AirportFragment extends Fragment {
@@ -22,12 +23,12 @@ public class AirportFragment extends Fragment {
     public static AirportFragment getInstance(Activity activity, AirportModel airport) {
         DashboardView dashboardView = (DashboardView)activity;
         LatLng userCoordinates = dashboardView.getUserMarker().getPosition();
-        LatLng airportCoordinates = new LatLng(airport.getLatitude(), airport.getLongitude());
+        LatLng airportCoordinates = new LatLng(ConverterHelper.stringToDouble(airport.getLatitudeAirport()), ConverterHelper.stringToDouble(airport.getLongitudeAirport()));
         String distanceFrom = dashboardView.getPresenter().getDistanceFromUserMessage(userCoordinates, airportCoordinates);
 
         Bundle payload = new Bundle();
-        payload.putString(Constants.AIRPORT_NAME, airport.getName());
-        payload.putString(Constants.AIRPORT_IATACODE, airport.getIataCode());
+        payload.putString(Constants.AIRPORT_NAME, airport.getNameAirport());
+        payload.putString(Constants.AIRPORT_IATACODE, airport.getCodeIataAirport());
         payload.putString(Constants.DISTANCE_FROM_USER, distanceFrom);
 
         return (AirportFragment)Fragment.instantiate(activity, AirportFragment.class.getName(), payload);
