@@ -2,8 +2,12 @@ package co.za.dvt.airportapp.features.base.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.provider.Settings;
+
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.fragments.BaseDialogFragment;
 import co.za.dvt.airportapp.fragments.LoadingSpinnerFragmentBase;
@@ -35,6 +39,17 @@ public abstract class BaseAsyncActivity extends BaseActivity{
         }
         else {
             hideDialog();
+        }
+    }
+
+    protected boolean isGPSOn() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            return lm.isLocationEnabled();
+        } else {
+            int mode = Settings.Secure.getInt(this.getContentResolver(), Settings.Secure.LOCATION_MODE,
+                    Settings.Secure.LOCATION_MODE_OFF);
+            return  (mode != Settings.Secure.LOCATION_MODE_OFF);
         }
     }
 

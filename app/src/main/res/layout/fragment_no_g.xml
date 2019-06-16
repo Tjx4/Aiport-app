@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.NoInternetFragment">
+    tools:context=".fragments.NoGPSFragment">
 
     <LinearLayout
         android:gravity="center"
@@ -15,13 +15,13 @@
         <TextView
             android:gravity="center"
             style="@style/largeLightTextView"
-            android:text="@string/no_internet"/>
+            android:text="@string/gps_off"/>
 
         <TextView
             android:gravity="center"
             android:layout_marginTop="15dp"
             style="@style/mediumLightTextView"
-            android:text="@string/no_internet_message"/>
+            android:text="@string/please_turn_on_your_gps_in_order_to_use_the_app"/>
     </LinearLayout>
 
 </FrameLayout>

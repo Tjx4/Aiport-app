@@ -43,6 +43,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.List;
 import co.za.dvt.airportapp.R;
+import co.za.dvt.airportapp.fragments.NoGPSFragment;
+import co.za.dvt.airportapp.fragments.NoInternetFragment;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
 import co.za.dvt.airportapp.helpers.PermissionsHelper;
 
@@ -59,6 +61,28 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
         super.onCreate(savedInstanceState);
         setWakeLock();
     }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
+            NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), getResources().getString(R.string.permission_denied_message), getResources().getString(R.string.ok));
+            onPermissionDenied();
+        }
+        else {
+
+            if(!isGPSOn()){
+                NoGPSFragment noGPSFragment = NoGPSFragment.newInstance(this, null);
+                NotificationHelper.showFragmentDialog(this, getString(R.string.gps_off), R.layout.fragment_no_g, noGPSFragment);
+                dialogFragment = noGPSFragment;
+            }
+        }
+
+    }
+
+    protected abstract void onPermissionDenied();
 
     protected void setWakeLock() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

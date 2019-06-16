@@ -57,15 +57,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         initViews();
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (!PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
-            NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), getResources().getString(R.string.permission_denied_message), getResources().getString(R.string.ok));
-        }
-    }
-
     @Override
     public void setupComponent(AppComponent appComponent) {
         DaggerDashboardComponent.builder().appComponent(appComponent)
@@ -117,6 +108,11 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         if(getPresenter().isMoved25Meters(currentCoordinates, userMarker.getPosition())){
             moveUserMarker(currentCoordinates);
         }
+    }
+
+    @Override
+    protected void onPermissionDenied() {
+        hideContainerViews();
     }
 
     @Override
