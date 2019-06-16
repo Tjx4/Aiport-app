@@ -10,7 +10,7 @@
     <string name="you">You</string>
     <string name="user_location_message">This is your location</string>
     <string name="finding_airports_message">Finding airports...</string>
-    <string name="find_nearby_airports_message">Welcome, please click the button to find airports nearby</string>
+    <string name="find_nearby_airports_message">Welcome, please select disctance and click plane icon to search</string>
     <string name="no_airports_message">No airports found in your area airports</string>
     <string name="no_flights_message">No flights found for this airport</string>
     <string name="error_finding_airports">Sorry an error occurred while trying to find airports</string>
@@ -19,5 +19,5 @@
     <string name="boarding">Boarding</string>
     <string name="no_flights_found">No flights were found</string>
     <string name="connection_suspended_message">Your google Api connection was suspended</string>
-    <string name="finding_flights_message">Finding flights</string>
+    <string name="finding_flights_message">Finding flights...</string>
 </resources>

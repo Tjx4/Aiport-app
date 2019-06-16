@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
@@ -52,6 +53,16 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
     protected GoogleApiClient googleApiClient;
     protected List<Marker> airportMarkers;
     protected Marker userMarker;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setWakeLock();
+    }
+
+    protected void setWakeLock() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
 
     protected void checkLocationPermissionAndContinue() {
         if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
@@ -128,8 +139,13 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
     }
 
     private void moveInToLocation(LatLng ll, int zoom) {
+        moveCameraUp(ll, 0.5);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ll, zoom);
         googleMap.moveCamera(cameraUpdate);
+    }
+
+    private void moveCameraUp(LatLng ll, double amount) {
+        ll = new LatLng(ll.latitude + amount, ll.longitude);
     }
 
     private void zoomInToLocation(LatLng ll, int zoom, boolean animate) {

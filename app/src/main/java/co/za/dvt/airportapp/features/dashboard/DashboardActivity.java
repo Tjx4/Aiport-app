@@ -43,7 +43,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     private ViewPager airportsViewPager;
     private TextView resultsTv;
     private View statusBar;
-    private final int AIRPORT_ZOOM = 13;
+    private final int AIRPORT_ZOOM = 12;
     private final int USER_ZOOM = 14;
 
     @Override
