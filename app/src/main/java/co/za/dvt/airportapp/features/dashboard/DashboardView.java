@@ -13,6 +13,7 @@ public interface DashboardView extends BaseView {
     void showFindAirportsView();
     void onFindAirportsClicked(View view);
     void onCloseAirportListClicked(View view);
+    void setDistance(int distance);
     void showAirportsFoundView();
     void showFindingAirportsDialog(String message);
     void hideFindingAirportsDialog();

@@ -139,13 +139,8 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
     }
 
     private void moveInToLocation(LatLng ll, int zoom) {
-        moveCameraUp(ll, 0.5);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ll, zoom);
         googleMap.moveCamera(cameraUpdate);
-    }
-
-    private void moveCameraUp(LatLng ll, double amount) {
-        ll = new LatLng(ll.latitude + amount, ll.longitude);
     }
 
     private void zoomInToLocation(LatLng ll, int zoom, boolean animate) {

@@ -124,13 +124,17 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     public void onFindAirportsClicked(View view) {
         showFindingAirportsDialog(getResources().getString(R.string.finding_airports_message));
         LatLng userCoordinates = userMarker.getPosition();
-        String distance = "100"; // Find some way to set distance
-        getPresenter().findAirports(userCoordinates, distance);
+        getPresenter().findAirports(userCoordinates);
     }
 
     @Override
     public void onCloseAirportListClicked(View view) {
         showFindAirportsView();
+    }
+
+    @Override
+    public void setDistance(int distance) {
+        getPresenter().setDistance(String.valueOf(distance));
     }
 
     @Override

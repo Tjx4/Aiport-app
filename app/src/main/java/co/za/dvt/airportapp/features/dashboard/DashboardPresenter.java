@@ -20,13 +20,14 @@ import retrofit2.Response;
 public class DashboardPresenter extends BaseMapPresenter {
     private DashboardView dashboardView;
     private NearbyAirportsModel nearbyAirportsModel;
+    private String distance;
 
     public DashboardPresenter(DashboardView dashboardView) {
         super(dashboardView);
         this.dashboardView = dashboardView;
     }
 
-    public void findAirports(final LatLng userCoordinates, String distance) {
+    public void findAirports(final LatLng userCoordinates) {
         if(isBusy)
             return;
 
@@ -65,6 +66,10 @@ public class DashboardPresenter extends BaseMapPresenter {
                 isBusy = false;
             }
         });
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 
     public void plotMarkersAndShowAirports(LatLng userCoordinates, List<AirportModel> airports){
