@@ -32,6 +32,7 @@ import co.za.dvt.airportapp.fragments.SetDistanceFragment;
 import co.za.dvt.airportapp.helpers.ConverterHelper;
 import co.za.dvt.airportapp.helpers.NavigationHelper;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
+import co.za.dvt.airportapp.helpers.PermissionsHelper;
 import co.za.dvt.airportapp.helpers.TransitionHelper;
 import co.za.dvt.airportapp.models.AirportModel;
 
@@ -54,6 +55,15 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         setContentView(R.layout.activity_dashboard_activity);
         checkLocationPermissionAndContinue();
         initViews();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
+            NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), getResources().getString(R.string.permission_denied_message), getResources().getString(R.string.ok));
+        }
     }
 
     @Override
@@ -151,6 +161,12 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         SetDistanceFragment setDistanceFragment = SetDistanceFragment.newInstance(this);
         NotificationHelper.showFragmentDialog(this, getString(R.string.no_internet), R.layout.fragment_set_distance, setDistanceFragment);
         dialogFragment = setDistanceFragment;
+    }
+
+    @Override
+    public void hideContainerViews() {
+        airportsCarouselContainerFl.setVisibility(View.GONE);
+        searchContainerLl.setVisibility(View.GONE);
     }
 
     @Override

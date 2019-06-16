@@ -11,6 +11,7 @@ public interface DashboardView extends BaseView {
     DashboardPresenter getPresenter();
     void plotUserMarker(LatLng latLng, String title, String snippet);
     void showFindAirportsView();
+    void hideContainerViews();
     void onFindAirportsClicked(View view);
     void onCloseAirportListClicked(View view);
     void setDistance(int distance);
