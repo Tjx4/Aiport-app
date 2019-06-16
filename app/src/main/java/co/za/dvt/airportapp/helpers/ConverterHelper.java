@@ -22,7 +22,9 @@ public class ConverterHelper {
 
     public static String getSimpleTime(String time){
         String longTime = time.split("T")[1];
-        String simpleTime = longTime.split("\\.")[0];
+        String hourMinuteSecs = longTime.split("\\.")[0];
+        String[] hourMinute = hourMinuteSecs.split(":");
+        String simpleTime = hourMinute[0]+":"+hourMinute[1];
         return simpleTime;
     }
 
