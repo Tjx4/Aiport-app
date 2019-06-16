@@ -57,6 +57,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         initViews();
     }
 
+
     @Override
     public void setupComponent(AppComponent appComponent) {
         DaggerDashboardComponent.builder().appComponent(appComponent)
@@ -108,6 +109,11 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         if(getPresenter().isMoved25Meters(currentCoordinates, userMarker.getPosition())){
             moveUserMarker(currentCoordinates);
         }
+    }
+
+    @Override
+    protected void onGpsOff() {
+        hideContainerViews();
     }
 
     @Override
