@@ -76,9 +76,6 @@
     </style>
 
     <style name="seekarTheme" parent="Widget.AppCompat.SeekBar">
-        <item name="android:progressBackgroundTint">#bbb</item>
-        <item name="android:progressTint">@color/colorAccent</item>
-        <item name="android:colorControlActivated">#ccc</item>
     </style>
 
     <style name="searchContainer">
