@@ -85,11 +85,7 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
                 if (grantResult == PackageManager.PERMISSION_GRANTED) {
                     checkGoogleApi();
                 }
-                else{
-                    NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), getResources().getString(R.string.permission_denied_message), getResources().getString(R.string.ok));
-                }
             }
-
         }
     }
 
