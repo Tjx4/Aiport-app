@@ -93,6 +93,10 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Override
     public void onMapReady(GoogleMap googleMap) {
         super.onMapReady(googleMap);
+
+        if(!isGPSOn())
+            return;
+
         showFindAirportsView();
     }
 

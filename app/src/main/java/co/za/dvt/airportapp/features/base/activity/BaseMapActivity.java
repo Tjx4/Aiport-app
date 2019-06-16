@@ -62,8 +62,6 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
         setWakeLock();
     }
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
