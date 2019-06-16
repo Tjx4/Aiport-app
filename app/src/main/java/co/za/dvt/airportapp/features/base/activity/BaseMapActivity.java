@@ -67,17 +67,12 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
         super.onResume();
         if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
             if(!isGPSOn()){
-                NoGPSFragment noGPSFragment = NoGPSFragment.newInstance(this, null);
-                NotificationHelper.showFragmentDialog(this, getString(R.string.gps_off), R.layout.fragment_no_g, noGPSFragment);
-                dialogFragment = noGPSFragment;
                 onGpsOff();
             }
         }
-        else {
-            NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), getResources().getString(R.string.permission_denied_message), getResources().getString(R.string.ok));
+        else{
             onPermissionDenied();
         }
-
     }
 
     protected abstract void onGpsOff();

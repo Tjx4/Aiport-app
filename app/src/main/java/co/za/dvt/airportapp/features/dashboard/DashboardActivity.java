@@ -28,6 +28,7 @@ import co.za.dvt.airportapp.di.modules.DashboardModule;
 import co.za.dvt.airportapp.features.base.activity.BaseMapActivity;
 import co.za.dvt.airportapp.features.departures.FlightsActivity;
 import co.za.dvt.airportapp.fragments.AirportFragment;
+import co.za.dvt.airportapp.fragments.NoGPSFragment;
 import co.za.dvt.airportapp.fragments.SetDistanceFragment;
 import co.za.dvt.airportapp.helpers.ConverterHelper;
 import co.za.dvt.airportapp.helpers.NavigationHelper;
@@ -55,6 +56,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         setContentView(R.layout.activity_dashboard_activity);
         checkLocationPermissionAndContinue();
         initViews();
+        checkPermissionsAndGps();
     }
 
 
@@ -64,6 +66,21 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
                 .dashboardModule(new DashboardModule(this))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    public void checkPermissionsAndGps(){
+        if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
+            if(!isGPSOn()){
+                NoGPSFragment noGPSFragment = NoGPSFragment.newInstance(this, null);
+                NotificationHelper.showFragmentDialog(this, getString(R.string.gps_off), R.layout.fragment_no_g, noGPSFragment);
+                dialogFragment = noGPSFragment;
+                onGpsOff();
+            }
+        }
+        else{
+            NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), getResources().getString(R.string.permission_denied_message), getResources().getString(R.string.ok));
+        }
     }
 
     @Override
@@ -94,8 +111,9 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     public void onMapReady(GoogleMap googleMap) {
         super.onMapReady(googleMap);
 
-        if(!isGPSOn())
+        if(!isGPSOn()){
             return;
+        }
 
         showFindAirportsView();
     }

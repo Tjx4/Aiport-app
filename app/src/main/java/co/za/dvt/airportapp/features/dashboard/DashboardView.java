@@ -10,6 +10,7 @@ import co.za.dvt.airportapp.models.AirportModel;
 public interface DashboardView extends BaseView {
     DashboardPresenter getPresenter();
     void plotUserMarker(LatLng latLng, String title, String snippet);
+    void checkPermissionsAndGps();
     void showFindAirportsView();
     void hideContainerViews();
     void onFindAirportsClicked(View view);
