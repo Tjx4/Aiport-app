@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/medium_view_padding"
+    tools:context=".fragments.SetDistanceFragment">
+
+    <LinearLayout
+        android:background="@color/lightBackground"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:context=".fragments.SetDistanceFragment">
+
+        <TextView
+            android:gravity="center"
+            style="@style/mediumDarkTextView"
+            android:text="Set distance"/>
+
+        <SeekBar
+            android:id="@+id/sbDistance"
+            android:progressDrawable="@drawable/red_scrubber_progress"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="500"
+            android:progress="10" />
+
+        <TextView
+            android:id="@+id/tvDistance"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            style="@style/mediumDarkTextView"
+            android:text="0km"/>
+
+    </LinearLayout>
+
+</FrameLayout>
