@@ -75,6 +75,12 @@
         <item name="android:textColor">@color/darkText</item>
     </style>
 
+    <style name="seekarTheme" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressBackgroundTint">#bbb</item>
+        <item name="android:progressTint">@color/colorAccent</item>
+        <item name="android:colorControlActivated">#ccc</item>
+    </style>
+
     <style name="searchContainer">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

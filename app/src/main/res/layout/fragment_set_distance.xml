@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="@dimen/medium_view_padding"
     tools:context=".fragments.SetDistanceFragment">
@@ -19,12 +20,14 @@
         <TextView
             android:gravity="center"
             style="@style/mediumDarkTextView"
-            android:text="Set distance"/>
+            android:text="@string/set_airport_distance"/>
 
         <SeekBar
             android:id="@+id/sbDistance"
-            style="@style/Widget.AppCompat.SeekBar"
-            android:progressDrawable="@drawable/distance_progress"
+            style="@style/seekarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
