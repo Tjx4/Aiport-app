@@ -6,10 +6,11 @@
         android:endColor="@color/colorAccent"
         android:angle="180" />
 
-    <corners android:radius="20dp" />
+    <corners
+        android:radius="5dp" />
 
     <stroke
-        android:width="2dp"
+        android:width="1dp"
         android:color="#50999999" />
 
     <stroke

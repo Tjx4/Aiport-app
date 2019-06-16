@@ -1,7 +1,10 @@
 package co.za.dvt.airportapp.fragments;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,8 +33,10 @@ public class SetDistanceFragment extends BaseDialogFragment {
         dashboardView = (DashboardView)getActivity();
         distanceTv = parentView.findViewById(R.id.tvDistance);
 
+        int distance = dashboardView.getPresenter().getDistance();
         distanceSb = parentView.findViewById(R.id.sbDistance);
-        distanceSb.setProgress(dashboardView.getPresenter().getDistance());
+        distanceSb.setProgress(distance);
+        distanceTv.setText(distance+"km");
         distanceSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -51,5 +56,12 @@ public class SetDistanceFragment extends BaseDialogFragment {
         });
 
         return parentView;
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        dashboardView.showDistanceMessage();
+
     }
 }

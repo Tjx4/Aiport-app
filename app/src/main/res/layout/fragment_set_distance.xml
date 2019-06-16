@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:background="@color/lightBackground"
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
@@ -23,7 +23,8 @@
 
         <SeekBar
             android:id="@+id/sbDistance"
-            android:progressDrawable="@drawable/red_scrubber_progress"
+            style="@style/Widget.AppCompat.SeekBar"
+            android:progressDrawable="@drawable/distance_progress"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

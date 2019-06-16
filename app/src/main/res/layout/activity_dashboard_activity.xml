@@ -20,6 +20,7 @@
         android:visibility="gone"
         android:clickable="true">
         <TextView
+            android:id="@+id/tvMessage"
             android:layout_toLeftOf="@+id/imgBtnDistance"
             style="@style/mediumDarkTextView"
             android:textSize="@dimen/search_text_size"

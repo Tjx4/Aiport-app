@@ -43,6 +43,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     private RelativeLayout searchContainerLl;
     private ViewPager airportsViewPager;
     private TextView resultsTv;
+    private TextView messageTv;
     private View statusBar;
     private final int AIRPORT_ZOOM = 12;
     private final int USER_ZOOM = 14;
@@ -78,6 +79,7 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         airportsCarouselContainerFl = findViewById(R.id.flAirportsCarouselContainer);
         searchContainerLl = findViewById(R.id.llSearchContainer);
         airportsViewPager = findViewById(R.id.vpAirports);
+        messageTv = findViewById(R.id.tvMessage);
         resultsTv = findViewById(R.id.tvResults);
     }
 
@@ -136,6 +138,12 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     @Override
     public void setDistance(int distance) {
         getPresenter().setDistance(distance);
+    }
+
+    @Override
+    public void showDistanceMessage() {
+        String message = getString(R.string.finding_range_message, getPresenter().getDistance());
+        messageTv.setText(message);
     }
 
     @Override

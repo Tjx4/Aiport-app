@@ -22,7 +22,5 @@
     <string name="finding_flights_message">Finding flights...</string>
     <string name="no_internet">No internet</string>
     <string name="no_internet_message">Please check your internet connection</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="finding_range_message">Finding airports within a range of %1$dkm</string>
 </resources>
