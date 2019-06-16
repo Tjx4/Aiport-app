@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class NoInternetFragmentBase extends BaseDialogFragment {
+public class NoInternetFragment extends BaseDialogFragment {
 
-    public static NoInternetFragmentBase newInstance(Activity context, Bundle bundle) {
-        return (NoInternetFragmentBase)Fragment.instantiate(context, NoInternetFragmentBase.class.getName(), bundle);
+    public static NoInternetFragment newInstance(Activity context, Bundle bundle) {
+        return (NoInternetFragment)Fragment.instantiate(context, NoInternetFragment.class.getName(), bundle);
     }
 
     @Override
