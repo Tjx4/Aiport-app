@@ -11,6 +11,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="240dp"
         android:padding="0dp"
@@ -68,5 +69,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#eee"/>
+
+    <TextView
+        android:id="@+id/tvNoflights"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:gravity="center"
+        style="@style/largeDarkTextView"
+        android:textColor="@color/darkText"
+        android:text="@string/no_flights_message"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

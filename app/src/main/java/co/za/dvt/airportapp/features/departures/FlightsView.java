@@ -8,6 +8,7 @@ public interface FlightsView extends BaseView {
     FlightsPresenter getPresenter();
     void showFindingFlightsDialog(String message);
     void showFlights(List<DepartureFlightsModel> flights, String airportName, String airportLocation);
-    void showFlightRetrieveError(String errorMessage);
+    void showFlightRetrieveErrorText(String errorMessage);
+    void showNoFlightsFoundErrorDialog(String errorMessage);
     void hideFindingFlightsDialog();
 }

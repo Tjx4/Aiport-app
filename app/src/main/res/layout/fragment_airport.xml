@@ -41,7 +41,7 @@
 
                 <TextView
                     android:id="@+id/tvdistanceFromUser"
-                    style="@style/mediumDarkEditText"/>
+                    style="@style/mediumDarkTextView"/>
 
             </LinearLayout>
 

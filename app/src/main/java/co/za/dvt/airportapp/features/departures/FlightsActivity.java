@@ -3,6 +3,8 @@ package co.za.dvt.airportapp.features.departures;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -23,10 +25,12 @@ public class FlightsActivity extends BaseChildActivity implements FlightsView , 
 
     @Inject
     FlightsPresenter flightsPresenter;
+    private View appBarLayout;
     private TextView airportLocationTv;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private Toolbar toolbar;
     private RecyclerView departuresRv;
+    private TextView noflightsTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +48,13 @@ public class FlightsActivity extends BaseChildActivity implements FlightsView , 
 
     @Override
     protected void initViews() {
+        appBarLayout = findViewById(R.id.app_bar_layout);
         collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.lightestText));
         collapsingToolbarLayout.setContentScrimColor(getResources().getColor(R.color.colorPrimary));
         collapsingToolbarLayout.setStatusBarScrimColor(getResources().getColor(R.color.colorPrimaryDark));
         airportLocationTv = findViewById(R.id.tvAirportLocation);
+        noflightsTv = findViewById(R.id.tvNoflights);
 
         departuresRv = findViewById(R.id.rvDepartures);
         departuresRv.setLayoutManager(new LinearLayoutManager(this));
@@ -88,11 +94,16 @@ public class FlightsActivity extends BaseChildActivity implements FlightsView , 
 
     @Override
     public void showFlights(List<DepartureFlightsModel> flights, String airportName, String airportLocation) {
+        appBarLayout.setVisibility(View.VISIBLE);
         collapsingToolbarLayout.setTitle(airportName);
         airportLocationTv.setText(airportLocation);
         FlightsAdapter flightsAdapter = new FlightsAdapter(this, flights);
         flightsAdapter.setClickListener(this);
         departuresRv.setAdapter(flightsAdapter);
+    }
+
+    public void onDialogDismissed(DialogInterface dialogInterface) {
+        finish();
     }
 
     @Override
@@ -101,7 +112,12 @@ public class FlightsActivity extends BaseChildActivity implements FlightsView , 
     }
 
     @Override
-    public void showFlightRetrieveError(String errorMessage) {
+    public void showFlightRetrieveErrorText(String errorMessage) {
+        noflightsTv.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showNoFlightsFoundErrorDialog(String errorMessage) {
         NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), errorMessage,  getResources().getString(R.string.ok));
     }
 

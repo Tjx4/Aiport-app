@@ -45,18 +45,18 @@ public class FlightsPresenter extends BaseAsyncPresenter {
                         showAirportFlights(timetableModel.getDepartureFlights(), timetableModel.getNameAirport(), timetableModel.getAirportLocation());
                     }
                     else{
-                        showFlightsError(context.getResources().getString(R.string.no_flights_message));
+                        showFlightsErrorText(context.getResources().getString(R.string.no_flights_message));
                     }
                 }
                 else{
-                    showFlightsError(context.getResources().getString(R.string.error_finding_flights));
+                    showFlightsErrorDialog(context.getResources().getString(R.string.error_finding_flights));
                 }
                 isBusy = false;
             }
 
             @Override
             public void onFailure(Call<List<DepartureFlightsModel>> call, Throwable t) {
-                showFlightsError(context.getResources().getString(R.string.error_finding_flights));
+                showFlightsErrorDialog(context.getResources().getString(R.string.error_finding_flights));
                 isBusy = false;
             }
         });
@@ -67,8 +67,13 @@ public class FlightsPresenter extends BaseAsyncPresenter {
         flightsView.showFlights(flights, airportName, airportLocation);
     }
 
-    private void showFlightsError(String errorMessage){
+    private void showFlightsErrorDialog(String errorMessage){
         flightsView.hideFindingFlightsDialog();
-        flightsView.showFlightRetrieveError(errorMessage);
+        flightsView.showNoFlightsFoundErrorDialog(errorMessage);
+    }
+
+    private void showFlightsErrorText(String errorMessage){
+        flightsView.hideFindingFlightsDialog();
+        flightsView.showFlightRetrieveErrorText(errorMessage);
     }
 }

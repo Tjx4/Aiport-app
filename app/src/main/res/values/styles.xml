@@ -15,7 +15,7 @@
         <item name="android:background">@drawable/splash_background</item>
     </style>
 
-    <style name="AlertDialogCustom" parent="@android:style/Theme.Dialog">
+    <style name="AlertDialogCustom" parent="@android:style/Theme.Holo">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#003366</item>
@@ -60,6 +60,9 @@
     <style name="largeDarkTextView" parent="largeTextView">
         <item name="android:textColor">@color/darkestText</item>
     </style>
+    <style name="largeErrorTextView" parent="largeDarkTextView">
+        <item name="android:textColor">@color/errorText</item>
+    </style>
     <style name="airLineTextView" parent="largeDarkTextView">
         <item name="android:textColor">@color/airLine_text_color</item>
     </style>
@@ -69,8 +72,11 @@
     <style name="mediumLightTextView" parent="mediumTextView">
         <item name="android:textColor">@color/lighterText</item>
     </style>
-    <style name="mediumDarkEditText" parent="mediumTextView">
+    <style name="mediumDarkTextView" parent="mediumTextView">
         <item name="android:textColor">@color/darkerText</item>
+    </style>
+    <style name="mediumErrorTextView" parent="mediumDarkTextView">
+        <item name="android:textColor">@color/errorText</item>
     </style>
     <style name="smallTextView" parent="airportAppTextView">
         <item name="android:textSize">@dimen/small_text_size</item>

@@ -3,6 +3,7 @@ package co.za.dvt.airportapp.helpers;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
+import co.za.dvt.airportapp.features.base.activity.BaseAsyncActivity;
 import co.za.dvt.airportapp.fragments.BaseDialogFragment;
 
 public class NotificationHelper {
@@ -39,20 +41,20 @@ public class NotificationHelper {
         return toast;
     }
 
-    public static void showErrorDialog(Context context, String title, String message, String buttonText) {
-        AlertDialog.Builder ab = setupBasicMessage(context, title, message, buttonText, false, false);
+    public static void showErrorDialog(BaseAsyncActivity asyncActivity, String title, String message, String buttonText) {
+        AlertDialog.Builder ab = setupBasicMessage(asyncActivity, title, message, buttonText, false, false);
         ab.setIcon(R.drawable.ic_error);
-        showAlertMessage(context, ab);
+        showAlertMessage(asyncActivity, ab);
     }
 
-    public static void showSuccessDialog(Context context, String title, String message, String buttonText) {
-        AlertDialog.Builder ab = setupBasicMessage(context, title, message, buttonText, false, false);
+    public static void showSuccessDialog(BaseAsyncActivity asyncActivity, String title, String message, String buttonText) {
+        AlertDialog.Builder ab = setupBasicMessage(asyncActivity, title, message, buttonText, false, false);
         ab.setIcon(R.drawable.ic_success);
-        showAlertMessage(context, ab);
+        showAlertMessage(asyncActivity, ab);
     }
 
-    private static AlertDialog.Builder setupBasicMessage(Context context, String title, String message, String posiTiveButtonText, boolean showNagativeButton, boolean showNutralButton) {
-        AlertDialog.Builder ab = new AlertDialog.Builder(context); //, R.style.AlertDialogCustom);
+    private static AlertDialog.Builder setupBasicMessage(final BaseAsyncActivity asyncActivity, String title, String message, String posiTiveButtonText, boolean showNagativeButton, boolean showNutralButton) {
+        AlertDialog.Builder ab = new AlertDialog.Builder(asyncActivity, R.style.AlertDialogCustom);
         ab.setMessage(message)
                 .setTitle(title)
                 .setPositiveButton(posiTiveButtonText, new DialogInterface.OnClickListener() {
@@ -73,6 +75,15 @@ public class NotificationHelper {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }
+            });
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            ab.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    asyncActivity.onDialogDismissed(dialogInterface);
                 }
             });
         }

@@ -1,5 +1,7 @@
 package co.za.dvt.airportapp.features.base.activity;
 
+import android.content.DialogInterface;
+
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.fragments.LoadingSpinnerFragmentBase;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
@@ -16,4 +18,9 @@ public abstract class BaseAsyncActivity extends BaseActivity{
         loadingDialogFragment = LoadingSpinnerFragmentBase.getInstance(this);
         NotificationHelper.showFragmentDialog(this, loadingMessage, R.layout.fragment_loading_spinner, loadingDialogFragment);
     }
+
+    public void onDialogDismissed(DialogInterface dialogInterface) {
+
+    }
+
 }

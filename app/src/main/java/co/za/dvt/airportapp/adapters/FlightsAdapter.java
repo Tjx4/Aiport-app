@@ -44,11 +44,11 @@ public class FlightsAdapter extends RecyclerView.Adapter<FlightsAdapter.ViewHold
 
         if(isDeparted){
             holder.departureDestinationTv.setText(R.string.departed);
-            holder.departureDestinationIndicatorImg.setImageResource(R.drawable.red_dot_x2);
+            holder.departureDestinationIndicatorImg.setImageResource(R.drawable.red_dot);
         }
         else{
             holder.departureDestinationTv.setText(R.string.boarding);
-            holder.departureDestinationIndicatorImg.setImageResource(R.drawable.green_dot_x2);
+            holder.departureDestinationIndicatorImg.setImageResource(R.drawable.green_dot);
         }
     }
 
