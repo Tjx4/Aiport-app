@@ -20,7 +20,7 @@ import retrofit2.Response;
 public class DashboardPresenter extends BaseMapPresenter {
     private DashboardView dashboardView;
     private NearbyAirportsModel nearbyAirportsModel;
-    private String distance;
+    private int distance = 10;
 
     public DashboardPresenter(DashboardView dashboardView) {
         super(dashboardView);
@@ -36,7 +36,7 @@ public class DashboardPresenter extends BaseMapPresenter {
         HashMap<String, String> payload = new HashMap<>();
         payload.put(Constants.LAT, String.valueOf(userCoordinates.latitude));
         payload.put(Constants.LNG, String.valueOf(userCoordinates.longitude));
-        payload.put(Constants.DISTANCE, distance);
+        payload.put(Constants.DISTANCE, String.valueOf(distance));
 
         Call<List<AirportModel>> call1 = retrofitHelper.getNearbyAirports(apiKey, payload);
         call1.enqueue(new Callback<List<AirportModel>>() {
@@ -68,8 +68,12 @@ public class DashboardPresenter extends BaseMapPresenter {
         });
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+    public int getDistance() {
+       return distance;
     }
 
     public void plotMarkersAndShowAirports(LatLng userCoordinates, List<AirportModel> airports){
@@ -98,11 +102,11 @@ public class DashboardPresenter extends BaseMapPresenter {
     public String getDistanceFromUserMessage(LatLng userCoordinates, LatLng airportCoordinates) {
 
         double distance = getDistanceInMeters(userCoordinates, airportCoordinates);
-        String unit = "meters";
+        String unit = "m";
 
         if(distance >= 1000) {
             distance = getDistanceInKm(userCoordinates, airportCoordinates);
-            unit = "Km";
+            unit = "km";
         }
 
         NumberFormat formatter = new DecimalFormat("#0");

@@ -28,6 +28,7 @@ import co.za.dvt.airportapp.di.modules.DashboardModule;
 import co.za.dvt.airportapp.features.base.activity.BaseMapActivity;
 import co.za.dvt.airportapp.features.departures.FlightsActivity;
 import co.za.dvt.airportapp.fragments.AirportFragment;
+import co.za.dvt.airportapp.fragments.SetDistanceFragment;
 import co.za.dvt.airportapp.helpers.ConverterHelper;
 import co.za.dvt.airportapp.helpers.NavigationHelper;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
@@ -134,7 +135,14 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
     @Override
     public void setDistance(int distance) {
-        getPresenter().setDistance(String.valueOf(distance));
+        getPresenter().setDistance(distance);
+    }
+
+    @Override
+    public void onSetDistanceClicked(View view) {
+        SetDistanceFragment setDistanceFragment = SetDistanceFragment.newInstance(this);
+        NotificationHelper.showFragmentDialog(this, getString(R.string.no_internet), R.layout.fragment_set_distance, setDistanceFragment);
+        dialogFragment = setDistanceFragment;
     }
 
     @Override

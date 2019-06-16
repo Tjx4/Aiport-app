@@ -7,12 +7,12 @@ import android.net.NetworkInfo;
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.fragments.BaseDialogFragment;
 import co.za.dvt.airportapp.fragments.LoadingSpinnerFragmentBase;
-import co.za.dvt.airportapp.fragments.NoInternetFragmentBase;
+import co.za.dvt.airportapp.fragments.NoInternetFragment;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
 
 public abstract class BaseAsyncActivity extends BaseActivity{
-    private BaseDialogFragment dialogFragment;
-    private LoadingSpinnerFragmentBase loadingDialogFragment;
+    protected BaseDialogFragment dialogFragment;
+    protected LoadingSpinnerFragmentBase loadingDialogFragment;
 
     protected void hideLoader(){
         if(loadingDialogFragment != null)
@@ -29,9 +29,9 @@ public abstract class BaseAsyncActivity extends BaseActivity{
     protected void onResume() {
         super.onResume();
         if(!isNetworkAvailable()){
-            NoInternetFragmentBase noInternetFragmentBase = NoInternetFragmentBase.newInstance(this, null);
-            NotificationHelper.showFragmentDialog(this, getString(R.string.no_internet), R.layout.fragment_no_internet, noInternetFragmentBase);
-            dialogFragment = noInternetFragmentBase;
+            NoInternetFragment noInternetFragment = NoInternetFragment.newInstance(this, null);
+            NotificationHelper.showFragmentDialog(this, getString(R.string.no_internet), R.layout.fragment_no_internet, noInternetFragment);
+            dialogFragment = noInternetFragment;
         }
         else {
             hideDialog();

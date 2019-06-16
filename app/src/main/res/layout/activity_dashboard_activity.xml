@@ -20,7 +20,7 @@
         android:visibility="gone"
         android:clickable="true">
         <TextView
-            android:layout_toLeftOf="@+id/imgBtnFind"
+            android:layout_toLeftOf="@+id/imgBtnDistance"
             style="@style/mediumDarkTextView"
             android:textSize="@dimen/search_text_size"
             android:layout_alignParentLeft="true"
@@ -28,6 +28,15 @@
             android:layout_marginRight="@dimen/small_view_margin"
             android:layout_marginLeft="@dimen/small_view_margin"
             android:text="@string/find_nearby_airports_message"/>
+
+        <ImageButton
+            style="@style/distanceButton"
+            android:id="@+id/imgBtnDistance"
+            android:layout_toLeftOf="@+id/imgBtnFind"
+            android:layout_centerVertical="true"
+            android:onClick="onSetDistanceClicked"
+            android:elevation="2dp"
+            android:src="@drawable/ic_distance"/>
 
         <ImageButton
             style="@style/searchButton"

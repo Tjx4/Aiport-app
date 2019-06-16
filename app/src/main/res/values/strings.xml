@@ -20,6 +20,8 @@
     <string name="no_flights_found">No flights were found</string>
     <string name="connection_suspended_message">Your google Api connection was suspended</string>
     <string name="finding_flights_message">Finding flights...</string>
+    <string name="no_internet">No internet</string>
+    <string name="no_internet_message">Please check your internet connection</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

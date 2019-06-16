@@ -86,6 +86,15 @@
         <item name="android:background">@drawable/search_container_background</item>
     </style>
 
+    <style name="distanceButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">@dimen/small_view_margin</item>
+        <item name="android:layout_marginLeft">@dimen/small_view_margin</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
     <style name="searchButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
