@@ -43,8 +43,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.List;
 import co.za.dvt.airportapp.R;
-import co.za.dvt.airportapp.fragments.NoGPSFragment;
-import co.za.dvt.airportapp.fragments.NoInternetFragment;
 import co.za.dvt.airportapp.helpers.NotificationHelper;
 import co.za.dvt.airportapp.helpers.PermissionsHelper;
 
@@ -62,21 +60,9 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
         setWakeLock();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
-            if(!isGPSOn()){
-                onGpsOff();
-            }
-        }
-        else{
-            onPermissionDenied();
-        }
-    }
-
     protected abstract void onGpsOff();
     protected abstract void onPermissionDenied();
+    protected abstract void listenForGpsStatusChanges();
 
     protected void setWakeLock() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -102,6 +88,9 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
             if(permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)){
                 if (grantResult == PackageManager.PERMISSION_GRANTED) {
                     checkGoogleApi();
+                }
+                else {
+                    onPermissionDenied();
                 }
             }
         }
@@ -129,6 +118,7 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
         this.googleMap = googleMap;
         googleMap.setMyLocationEnabled(true);
         moveLocationButtonToBottomRight();
+
     }
 
     protected void moveLocationButtonToBottomRight() {

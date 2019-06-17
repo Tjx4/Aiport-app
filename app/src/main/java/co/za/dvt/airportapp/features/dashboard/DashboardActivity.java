@@ -1,24 +1,31 @@
 package co.za.dvt.airportapp.features.dashboard;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.adapters.AirportPagerAdapter;
 import co.za.dvt.airportapp.constants.Constants;
@@ -37,7 +44,10 @@ import co.za.dvt.airportapp.helpers.PermissionsHelper;
 import co.za.dvt.airportapp.helpers.TransitionHelper;
 import co.za.dvt.airportapp.models.AirportModel;
 
-public class DashboardActivity extends BaseMapActivity implements DashboardView{
+import static android.location.GpsStatus.GPS_EVENT_STARTED;
+import static android.location.GpsStatus.GPS_EVENT_STOPPED;
+
+public class DashboardActivity extends BaseMapActivity implements DashboardView {
 
     @Inject
     DashboardPresenter dashboardPresenter;
@@ -55,9 +65,19 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
         setContentView(R.layout.activity_dashboard_activity);
         checkLocationPermissionAndContinue();
         initViews();
-        checkPermissionsAndGps();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)) {
+            if (!isGPSOn()) {
+                hideContainerViews();
+            }
+        } else {
+            hideContainerViews();
+        }
+    }
 
     @Override
     public void setupComponent(AppComponent appComponent) {
@@ -65,21 +85,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
                 .dashboardModule(new DashboardModule(this))
                 .build()
                 .inject(this);
-    }
-
-    @Override
-    public void checkPermissionsAndGps(){
-        if (PermissionsHelper.isAccesFimeLocationPermissionGranted(this)){
-            if(!isGPSOn()){
-                NoGPSFragment noGPSFragment = NoGPSFragment.newInstance(this, null);
-                NotificationHelper.showFragmentDialog(this, getString(R.string.gps_off), R.layout.fragment_no_g, noGPSFragment);
-                dialogFragment = noGPSFragment;
-                onGpsOff();
-            }
-        }
-        else{
-            NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), getResources().getString(R.string.permission_denied_message), getResources().getString(R.string.ok));
-        }
     }
 
     @Override
@@ -105,11 +110,34 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     public void onMapReady(GoogleMap googleMap) {
         super.onMapReady(googleMap);
 
-        if(!isGPSOn()){
+        if (!isGPSOn()) {
+            onGpsOff();
             return;
         }
 
         showFindAirportsView();
+        listenForGpsStatusChanges();
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    protected void listenForGpsStatusChanges() {
+        if (!PermissionsHelper.isAccesFimeLocationPermissionGranted(this))
+            return;
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationManager.addGpsStatusListener(new android.location.GpsStatus.Listener() {
+            public void onGpsStatusChanged(int event) {
+                switch (event) {
+                    case GPS_EVENT_STARTED:
+                        showFindAirportsView();
+                        break;
+                    case GPS_EVENT_STOPPED:
+                        onGpsOff();
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -129,11 +157,15 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
     @Override
     protected void onGpsOff() {
+        NoGPSFragment noGPSFragment = NoGPSFragment.newInstance(this, null);
+        NotificationHelper.showFragmentDialog(this, getString(R.string.gps_off), R.layout.fragment_no_g, noGPSFragment);
+        dialogFragment = noGPSFragment;
         hideContainerViews();
     }
 
     @Override
     protected void onPermissionDenied() {
+        NotificationHelper.showErrorDialog(this, getResources().getString(R.string.error_dialog_title), getResources().getString(R.string.permission_denied_message), getResources().getString(R.string.ok));
         hideContainerViews();
     }
 
