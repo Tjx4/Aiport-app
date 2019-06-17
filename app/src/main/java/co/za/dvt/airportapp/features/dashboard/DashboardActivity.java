@@ -43,7 +43,6 @@ import co.za.dvt.airportapp.helpers.NotificationHelper;
 import co.za.dvt.airportapp.helpers.PermissionsHelper;
 import co.za.dvt.airportapp.helpers.TransitionHelper;
 import co.za.dvt.airportapp.models.AirportModel;
-
 import static android.location.GpsStatus.GPS_EVENT_STARTED;
 import static android.location.GpsStatus.GPS_EVENT_STOPPED;
 
@@ -116,29 +115,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView 
         }
 
         showFindAirportsView();
-        listenForGpsStatusChanges();
-    }
-
-    @SuppressLint("MissingPermission")
-    @Override
-    protected void listenForGpsStatusChanges() {
-        if (!PermissionsHelper.isAccesFimeLocationPermissionGranted(this))
-            return;
-
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.addGpsStatusListener(new android.location.GpsStatus.Listener() {
-            public void onGpsStatusChanged(int event) {
-                switch (event) {
-                    case GPS_EVENT_STARTED:
-                        showFindAirportsView();
-                        break;
-                    case GPS_EVENT_STOPPED:
-                        if(isActive)
-                            onGpsOff();
-                        break;
-                }
-            }
-        });
     }
 
     @Override

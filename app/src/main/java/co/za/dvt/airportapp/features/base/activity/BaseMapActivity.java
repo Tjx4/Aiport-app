@@ -53,7 +53,6 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
     protected GoogleApiClient googleApiClient;
     protected List<Marker> airportMarkers;
     protected Marker userMarker;
-    protected boolean isActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,33 +60,8 @@ public abstract class BaseMapActivity extends BaseparentActivity implements OnMa
         setWakeLock();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        isActive = true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        isActive = false;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        isActive = false;
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        isActive = false;
-    }
-
     protected abstract void onGpsOff();
     protected abstract void onPermissionDenied();
-    protected abstract void listenForGpsStatusChanges();
 
     protected void setWakeLock() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
