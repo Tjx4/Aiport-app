@@ -1,15 +1,12 @@
 package co.za.dvt.airportapp.features.base.activity;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
+
 import androidx.appcompat.app.AppCompatActivity;
 import co.za.dvt.airportapp.MyApplication;
-import co.za.dvt.airportapp.R;
 import co.za.dvt.airportapp.constants.Constants;
 import co.za.dvt.airportapp.di.interfaces.DaggerActivity;
+import co.za.dvt.airportapp.helpers.TranslucentStatusBarHelper;
 
 public abstract class BaseActivity extends AppCompatActivity implements DaggerActivity {
 
@@ -31,10 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity implements DaggerAc
     }
 
     protected void setransparentStatusAndBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
+        TranslucentStatusBarHelper.setTranslucent(this, TranslucentStatusBarHelper.DEFAULT_STATUS_BAR_ALPHA);
     }
 
     protected abstract void initViews();

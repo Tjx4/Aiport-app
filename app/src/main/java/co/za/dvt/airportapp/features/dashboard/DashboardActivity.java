@@ -46,7 +46,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
     private ViewPager airportsViewPager;
     private TextView resultsTv;
     private TextView messageTv;
-    private View statusBar;
     private final int AIRPORT_ZOOM = 12;
     private final int USER_ZOOM = 14;
 
@@ -90,11 +89,6 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView{
 
     @Override
     protected void initViews() {
-        statusBar = findViewById(R.id.flStatusBar);
-        ViewGroup.LayoutParams params = statusBar.getLayoutParams();
-        params.height = getStatusBarHeight();
-        statusBar.setLayoutParams(params);
-
         airportsCarouselContainerFl = findViewById(R.id.flAirportsCarouselContainer);
         searchContainerLl = findViewById(R.id.llSearchContainer);
         airportsViewPager = findViewById(R.id.vpAirports);
