@@ -133,7 +133,8 @@ public class DashboardActivity extends BaseMapActivity implements DashboardView 
                         showFindAirportsView();
                         break;
                     case GPS_EVENT_STOPPED:
-                        onGpsOff();
+                        if(isActive)
+                            onGpsOff();
                         break;
                 }
             }
