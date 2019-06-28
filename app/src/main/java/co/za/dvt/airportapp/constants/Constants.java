@@ -21,5 +21,5 @@ public class Constants {
     public static final String DISTANCE = "distance";
     public static final String IATACODE = "iataCode";
     public static final String TYPE = "type";
-    public static final String API_KEY = "c474d2-8abdca";
+    public static final String API_KEY = "201a95-1cfacc";
 }
